@@ -2,29 +2,34 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 
 
 # Create your models here.
 class Question(models.Model):
-    title = models.CharField(max_length=250).unique
+    title = models.CharField(max_length=250)
     question_text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    tags = []
+    tags = ArrayField(models.ForeignKey(Tag), blank=True)
 
-    def add_tag(self, ):
-        pass
+    def add_tag(self, tag):
+        self.tags.append(tag)
 
 
 class Solution(models.Model):
-    question_title = Question.title
+    question = models.ForeignKey(Question)
     solution_text = models.TextField()
+    tags = ArrayField(models.ForeignKey(Tag), blank=True)
+
+    def add_tag(self, tag):
+        self.tags.append(tag)
 
 
 class Tag(models.Model):
     """
     The generic tag class
     """
-    name = None
+    name = models.TextField()
     parent = None
     children = []
 
