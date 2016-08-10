@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import ArrayField
+# from django.contrib.postgres.fields import ArrayField
 
 
 # Create your models here.
@@ -10,7 +10,7 @@ class Question(models.Model):
     title = models.CharField(max_length=250)
     question_text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    tags = ArrayField(models.ForeignKey(Tag), blank=True)
+    # tags = ArrayField(models.ForeignKey(Tag), blank=True)
 
     def add_tag(self, tag):
         self.tags.append(tag)
@@ -19,7 +19,7 @@ class Question(models.Model):
 class Solution(models.Model):
     question = models.ForeignKey(Question)
     solution_text = models.TextField()
-    tags = ArrayField(models.ForeignKey(Tag), blank=True)
+    # tags = ArrayField(models.ForeignKey(Tag), blank=True)
 
     def add_tag(self, tag):
         self.tags.append(tag)
