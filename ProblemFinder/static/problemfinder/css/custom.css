@@ -1,0 +1,14 @@
+/*ADD YOUR OWN CSS HERE ONLY*/
+
+.quicksearch{
+    height: 40px;
+    color: #000;
+    width: 300px;
+    background-color: #fff3b2;
+}
+
+.dropdown{
+    display: inline-block;
+    float: left;
+
+}
