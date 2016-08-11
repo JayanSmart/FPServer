@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,11 +13,12 @@
 
     <title>Freelancer - Start Bootstrap Theme</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Theme CSS -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
+    {# Importing CSS #}
+    <link rel="stylesheet" type="text/css" href="{% static 'problemfinder/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'problemfinder/css/freelancer.min.css' %}" />
+
+
 
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
