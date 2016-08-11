@@ -10,6 +10,9 @@
 .dropdown{
     display: inline-block;
     float: left;
-
+    padding-right: 5px;
 }
 
+.btn-primary{
+    padding-top: 500px;
+}
