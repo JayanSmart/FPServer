@@ -41,3 +41,7 @@ header .intro-text .name{
     font-size: 3.7em !important;
 }
 
+.glyphicon {
+   font-family:'Glyphicons Halflings' !important;
+   // more css comes along here
+}
