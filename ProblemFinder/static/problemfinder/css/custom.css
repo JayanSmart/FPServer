@@ -12,6 +12,10 @@
     float: none;
     padding-right: 5px;
 }
+.btn-default{
+    color: #3949ab !important;
+}
+
 
 .btn-primary{
     padding-top: 500px;
@@ -22,9 +26,15 @@
 }
 
 .search{
-    width: 600px;
-    alignment: right;
+    width: 400px !important;
+    display: block;
+    margin: 0 auto;
 }
+
+header, hr.star-light:after{
+    background: #00bcd4 !important;
+}
+
 
 
 header .intro-text .name{
