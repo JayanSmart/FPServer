@@ -9,10 +9,28 @@
 
 .dropdown{
     display: inline-block;
-    float: left;
+    float: none;
     padding-right: 5px;
 }
 
 .btn-primary{
     padding-top: 500px;
+}
+
+.navbar-custom{
+    padding: 5px !important;
+}
+
+.search{
+    width: 600px;
+}
+.fullSearch{
+    display: block !important;
+    margin: 0 auto;
+    text-align: center;
+    float: none !important;
+}
+
+header .intro-text .name{
+    font-size: 3.7em !important;
 }
