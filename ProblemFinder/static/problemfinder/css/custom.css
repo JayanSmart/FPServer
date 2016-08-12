@@ -29,6 +29,7 @@
     width: 400px !important;
     display: block;
     margin: 0 auto;
+
 }
 
 header, hr.star-light:after{
@@ -36,7 +37,7 @@ header, hr.star-light:after{
 }
 
 
-
 header .intro-text .name{
     font-size: 3.7em !important;
 }
+
