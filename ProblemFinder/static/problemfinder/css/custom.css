@@ -23,13 +23,9 @@
 
 .search{
     width: 600px;
+    alignment: right;
 }
-.fullSearch{
-    display: block !important;
-    margin: 0 auto;
-    text-align: center;
-    float: none !important;
-}
+
 
 header .intro-text .name{
     font-size: 3.7em !important;
