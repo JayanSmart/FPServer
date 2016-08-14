@@ -82,16 +82,118 @@
 <header>
     <div class="container" align="center">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg">
 
                 <div class="intro-text">
-                    <h3>Results</h3>
+                    <span class="name">Search For Question</span>
+                    <hr class="star-light">
+                    <span class="skills">Difficulty - Algorithm - Language</span>
                 </div>
+
+                <p><br><br></p>
+
+                {#  DROPDOWNS  #}
+                <!-- Difficulty dropdown menu -->
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                        Difficulty
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Easy</a></li>
+                        <li><a href="#">Moderate</a></li>
+                        <li><a href="#">Hard</a></li>
+                        <li><a href="#">Kamikaze</a></li>
+                    </ul>
+                </div>
+
+                <!-- Language choice dropdown menu -->
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Language
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Java</a></li>
+                        <li><a href="#">C#</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Add new language...</a></li>
+                    </ul>
+
+                </div>
+
+                <p><br></p>
+
+                {#  SEARCH BAR  #}
+                <div class="search" align="center">
+                    <div class="input-group" align="center">
+                        <input type="text" class="form-control" placeholder="search keyword(s) here">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+
+                <p><br></p>
+
+                {# ADD NEW QUESTION BUTTON #}
+                <button type="button" class="btn btn-primary" href="search.html">
+                    <a href="search">ADD TO LIST</a>
+                </button>
+
 
             </div>
         </div>
     </div>
 </header>
+
+<section>
+<div class="container">
+    <p><br></p>
+    <div class="row">
+
+            <div class="answerRow">
+                                <h4 align="left">Iron Man</h4>
+                                <p>Tony Stark is playing a game with his suits (they have auto-pilot now). He lives in Malibu. Malibu has n junctions numbered from 1 to n, connected with n - 1 roads. One can get from a junction to any other junction using these roads (graph of Malibu forms a tree).
+
+                                    Tony has m suits. There's a special plan for each suit. The i-th suit will appear at the moment of time ti in the junction vi, and will move to junction ui using the shortest path between vi and ui with the speed ci roads per second (passing a junctions takes no time), and vanishing immediately when arriving at ui (if it reaches ui in time q, it's available there at moment q, but not in further moments)....</p>
+                                <a>See More</a><p></p>
+                                <a>Add to Worksheet</a>
+                            </div>
+        </div>
+
+    <p><br></p>
+
+            <div class="row">
+                            <div class="answerRow">
+                                <h4 align="left">Road To Post Office</h4>
+                                <p>Vasiliy has a car and he wants to get from home to the post office. The distance which he needs to pass equals to d kilometers.
+
+                                    Vasiliy's car is not new — it breaks after driven every k kilometers and Vasiliy needs t seconds to repair it. After repairing his car Vasiliy can drive again (but after k kilometers it will break again, and so on). In the beginning of the trip the car is just from repair station.
+
+                                    To drive one kilometer on car Vasiliy spends a seconds, to walk one kilometer on foot he needs b seconds (a < b).</p>
+                                <a>See More</a><p></p>
+                                <a>Add to Worksheet</a>
+                            </div>
+                </div>
+
+    <p><br></p>
+
+            <div class="row">
+                            <div class="answerRow">
+                                <h4 align="left">Cellular Network</h4>
+                                <p>You are given n points on the straight line — the positions (x-coordinates) of the cities and m points on the same line — the positions (x-coordinates) of the cellular towers. All towers work in the same way — they provide cellular network for all cities, which are located at the distance which is no more than r from this tower.</p>
+                                <a>See More</a><p></p>
+                                <a>Add to Worksheet</a>
+                            </div>
+                </div>
+    <p><br></p>
+</div>
+
+</section>
 
 
 <!-- Footer -->
@@ -107,7 +209,7 @@
                 <div class="footer-col col-md-4">
 
                     {#  Add footer content#}
-                    <h3>Add Whatever here later</h3>
+                    <h3>Footer</h3>
 
                 </div>
                 <div class="footer-col col-md-4">

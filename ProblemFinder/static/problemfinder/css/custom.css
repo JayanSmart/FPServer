@@ -1,5 +1,17 @@
 /*ADD YOUR OWN CSS HERE ONLY*/
 
+p{
+    font-size: 16px !important;
+}
+
+.answerRow{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-spacing: 15px;
+    background-color: white;
+}
+
 .quicksearch{
     height: 40px;
     color: #000;
@@ -14,6 +26,11 @@
 }
 .btn-default{
     color: #3949ab !important;
+}
+
+section{
+    background-color: #31708f;
+    padding: 20px 0 !important;
 }
 
 
@@ -61,3 +78,4 @@ header .intro-text .name{
   color: #222;
   border-color: #222;
 }
+
