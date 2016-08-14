@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from django.http import Http404
+from django.shortcuts import render
+
 from .models import Question
 
 
@@ -19,7 +20,7 @@ def index(request):
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/index.html", context)
 
-def bootstrap(request):
+def search(request):
     #Taking care of the 404 error
     try:
         questions_list = Question.objects.order_by('title')
@@ -31,4 +32,4 @@ def bootstrap(request):
     }
 
     # This is a shortcut and saves having to use the loader class
-    return render(request, "problemfinder/bootstrap.html", context)
+    return render(request, "problemfinder/search.html", context)
