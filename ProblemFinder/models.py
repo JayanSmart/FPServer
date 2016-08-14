@@ -2,35 +2,16 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-# from django.contrib.postgres.fields import ArrayField
+
 
 
 # Create your models here.
-class Question(models.Model):
-    title = models.CharField(max_length=250)
-    question_text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    # tags = ArrayField(models.ForeignKey(Tag), blank=True)
-
-    def add_tag(self, tag):
-        self.tags.append(tag)
-
-
-class Solution(models.Model):
-    question = models.ForeignKey(Question)
-    solution_text = models.TextField()
-    # tags = ArrayField(models.ForeignKey(Tag), blank=True)
-
-    def add_tag(self, tag):
-        self.tags.append(tag)
-
-
 class Tag(models.Model):
     """
     The generic tag class
     """
     name = models.TextField()
-    parent = None
+    parent = models.ForeignKey('self', null=True, blank=True)
     children = []
 
     def __str__(self):
@@ -46,6 +27,9 @@ class Tag(models.Model):
             self.parent = parent
             parent.addChild(self)
 
+    def addTag(self, name, parent):
+        new_tag(name, parent)
+
     def add_child(self, child):
         self.children.append(child)
 
@@ -53,18 +37,46 @@ class Tag(models.Model):
         return self.children
 
 
-# todo: implement this where appropriate (pseudo "Main" method)
-# def addTag(name, parent):
-#     if parent is None:
-#         tags.append(Tag(name, None))
-#         return
-#     parentTag = None
-#     for tag in tags:
-#         if tag.name == parent:
-#             parentTag = tag
-#             break
-#     if parentTag is None:
-#         addTag(parent, None)
-#         tags.append(Tag(name, tags[-1]))
-#     else:
-#         tags.append(Tag(name, parentTag))
+class Question(models.Model):
+    title = models.CharField(max_length=250)
+    question_text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    tags = models.ManyToManyField(Tag)
+
+    def add_tag(self, tag):
+        self.tags.add(tag)
+
+    def remove_tag(self, tag):
+        self.tags.remove(tag)
+
+
+class Solution(models.Model):
+    question = models.ForeignKey(Question)
+    solution_text = models.TextField()
+    tags = models.ManyToManyField(Tag)
+
+    def add_tag(self, tag):
+        self.tags.append(tag)
+
+    def remove_tag(self, tag):
+        self.tags.remove(tag)
+
+
+# Misc Functions
+
+# This is for the Tag model
+def new_tag(name, parent):
+    if parent is None:
+        Tag.objects.create(name, None)
+        return
+    parent_tag = None
+    for tag in Tag.objects.all():
+        if tag.name == parent:
+            parent_tag = Tag.objects.get(parent)
+            break
+    if parent_tag is None:
+        new_tag(parent, None)
+        new_tag(name, parent)
+    else:
+        made_tag = Tag.objects.create(name, parent_tag)
+        parent_tag.add_child(made_tag)
