@@ -19,7 +19,7 @@ class Tag(models.Model):
             output += str(self.parent)
         return (output + ':' + self.name).strip(':')
 
-    def addTag(self, name, parent):
+    def add_tag(self, name, parent):
         new_tag(name, parent)
 
     def add_child(self, child):
@@ -35,6 +35,9 @@ class Question(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.title
+
     def add_tag(self, tag):
         self.tags.add(tag)
 
@@ -46,6 +49,15 @@ class Solution(models.Model):
     question = models.ForeignKey(Question)
     solution_text = models.TextField()
     tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        output = ""
+        for tag in self.tags.all():
+            if tag.name in ["Java", "Python", "C#", "C++"]:
+                output += tag.name
+        output += " : " + self.question.title
+        return output
+
 
     def add_tag(self, tag):
         self.tags.append(tag)
