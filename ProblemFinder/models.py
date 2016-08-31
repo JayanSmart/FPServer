@@ -4,7 +4,6 @@ from django.db import models
 from django.utils import timezone
 
 
-
 # Create your models here.
 class Tag(models.Model):
     """
@@ -19,13 +18,6 @@ class Tag(models.Model):
         if self.parent is not None:
             output += str(self.parent)
         return (output + ':' + self.name).strip(':')
-
-    # todo: work out why pyCharm doesn't like this. prob a django thing
-    def __init__(self, name, parent):
-        self.name = name
-        if parent is not None:
-            self.parent = parent
-            parent.addChild(self)
 
     def addTag(self, name, parent):
         new_tag(name, parent)
