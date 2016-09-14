@@ -29,11 +29,38 @@ class Tag(models.Model):
         return self.children
 
 
+class Solution(models.Model):
+    """
+    This is a generic Solution Class
+    """
+    description = models.TextField()
+    solution_text = models.TextField()
+    tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        output = self.description + " : "
+        for tag in self.tags.all():
+            if tag.name in ["Java", "Python", "C#", "C++"]:
+                output += tag.name
+                break
+        return output
+
+    def add_tag(self, tag):
+        self.tags.append(tag)
+
+    def remove_tag(self, tag):
+        self.tags.remove(tag)
+
+
 class Question(models.Model):
+    """
+    This is a generic Question Class
+    """
     title = models.CharField(max_length=250)
     question_text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
+    solutions = models.ManyToManyField(Solution)
 
     def __str__(self):
         return self.title
@@ -45,25 +72,7 @@ class Question(models.Model):
         self.tags.remove(tag)
 
 
-class Solution(models.Model):
-    question = models.ForeignKey(Question)
-    solution_text = models.TextField()
-    tags = models.ManyToManyField(Tag)
 
-    def __str__(self):
-        output = ""
-        for tag in self.tags.all():
-            if tag.name in ["Java", "Python", "C#", "C++"]:
-                output += tag.name
-        output += " : " + self.question.title
-        return output
-
-
-    def add_tag(self, tag):
-        self.tags.append(tag)
-
-    def remove_tag(self, tag):
-        self.tags.remove(tag)
 
 
 # Misc Functions
