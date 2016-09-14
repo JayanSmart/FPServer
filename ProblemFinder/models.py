@@ -34,7 +34,9 @@ class Solution(models.Model):
     This is a generic Solution Class
     """
     description = models.TextField()
-    solution_text = models.TextField()
+    solution_text = models.TextField(blank=True)
+    solution_URL = models.URLField(blank=True)
+    solution_PDF = models.FileField(upload_to='uploads/', blank=True)
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
@@ -57,7 +59,9 @@ class Question(models.Model):
     This is a generic Question Class
     """
     title = models.CharField(max_length=250)
-    question_text = models.TextField()
+    question_text = models.TextField(blank=True)
+    question_URL = models.URLField(blank=True)
+    question_PDF = models.FileField(upload_to='uploads/', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
     solutions = models.ManyToManyField(Solution)
