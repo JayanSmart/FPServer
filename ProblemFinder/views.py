@@ -27,6 +27,7 @@ def search(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
+
     context = {
         'question_list': questions_list
     }

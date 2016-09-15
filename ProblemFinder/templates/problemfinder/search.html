@@ -150,6 +150,24 @@
     </div>
 </header>
 
+
+<section>
+    <div class="container">
+        <p><br></p>
+
+        <h3>These are the questions returned from django</h3>
+
+
+        <div class="answerRow">
+        {%  block content %}
+            {% for question in object_list %}
+                <h3>{{ question }} </h3>
+            {%  endfor %}
+        {% endblock %}
+        </div>
+
+    </div>
+</section>
 <section>
 <div class="container">
     <p><br></p>
