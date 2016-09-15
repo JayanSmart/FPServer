@@ -157,11 +157,12 @@
 
         <h3>These are the questions returned from django</h3>
 
-
         <div class="answerRow">
         {%  block content %}
             {% for question in object_list %}
-                <h3>{{ question }} </h3>
+                 <h5>{{ question.title }}</h5>
+                <a>{{ question.question_URL }} </a>
+                <p><br></p>
             {%  endfor %}
         {% endblock %}
         </div>
