@@ -97,3 +97,20 @@ def new_tag(name, parent):
     else:
         made_tag = Tag.objects.create(name, parent_tag)
         parent_tag.add_child(made_tag)
+
+#The Search Algorithm (in progress)
+def search(difficulty, language, tagList):
+    for i in Question:
+        for j in Question.tags:
+            if j == difficulty:
+                if j == language:
+                    for k in tagList:
+                        if j == k:
+                            return i
+
+#Initialising search variables from search.html
+def populateSearch():
+    return
+
+
+

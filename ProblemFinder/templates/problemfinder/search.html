@@ -122,12 +122,10 @@
                         <li class="divider"></li>
                         <li><a href="#">Add new language...</a></li>
                     </ul>
-
                 </div>
-
+                
                 <p><br></p>
 
-                {#  SEARCH BAR  #}
                 <div class="search" align="center">
                     <div class="input-group" align="center">
                         <input type="text" class="form-control" placeholder="search keyword(s) here">
@@ -139,11 +137,9 @@
 
                 <p><br></p>
 
-                {# ADD NEW QUESTION BUTTON #}
                 <button type="button" class="btn btn-primary" href="search.html">
                     <a href="search">ADD TO LIST</a>
                 </button>
-
 
             </div>
         </div>
@@ -154,66 +150,23 @@
 <section>
     <div class="container">
         <p><br></p>
+        <h3>Search Results</h3>
 
-        <h3>These are the questions returned from django</h3>
-
-        <div class="answerRow">
         {%  block content %}
             {% for question in object_list %}
+                <p></p>
+                <div class="answerRow">
                  <h5>{{ question.title }}</h5>
-                <a>{{ question.question_URL }} </a>
+                <p style="text-align:left;float:right;">{{ question.tags }}</p>
+                <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
                 <p><br></p>
+                </div>
             {%  endfor %}
         {% endblock %}
-        </div>
+
 
     </div>
 </section>
-<section>
-<div class="container">
-    <p><br></p>
-    <div class="row">
-
-            <div class="answerRow">
-                                <h4 align="left">Iron Man</h4>
-                                <p>Tony Stark is playing a game with his suits (they have auto-pilot now). He lives in Malibu. Malibu has n junctions numbered from 1 to n, connected with n - 1 roads. One can get from a junction to any other junction using these roads (graph of Malibu forms a tree).
-
-                                    Tony has m suits. There's a special plan for each suit. The i-th suit will appear at the moment of time ti in the junction vi, and will move to junction ui using the shortest path between vi and ui with the speed ci roads per second (passing a junctions takes no time), and vanishing immediately when arriving at ui (if it reaches ui in time q, it's available there at moment q, but not in further moments)....</p>
-                                <a>See More</a><p></p>
-                                <a>Add to Worksheet</a>
-                            </div>
-        </div>
-
-    <p><br></p>
-
-            <div class="row">
-                            <div class="answerRow">
-                                <h4 align="left">Road To Post Office</h4>
-                                <p>Vasiliy has a car and he wants to get from home to the post office. The distance which he needs to pass equals to d kilometers.
-
-                                    Vasiliy's car is not new — it breaks after driven every k kilometers and Vasiliy needs t seconds to repair it. After repairing his car Vasiliy can drive again (but after k kilometers it will break again, and so on). In the beginning of the trip the car is just from repair station.
-
-                                    To drive one kilometer on car Vasiliy spends a seconds, to walk one kilometer on foot he needs b seconds (a < b).</p>
-                                <a>See More</a><p></p>
-                                <a>Add to Worksheet</a>
-                            </div>
-                </div>
-
-    <p><br></p>
-
-            <div class="row">
-                            <div class="answerRow">
-                                <h4 align="left">Cellular Network</h4>
-                                <p>You are given n points on the straight line — the positions (x-coordinates) of the cities and m points on the same line — the positions (x-coordinates) of the cellular towers. All towers work in the same way — they provide cellular network for all cities, which are located at the distance which is no more than r from this tower.</p>
-                                <a>See More</a><p></p>
-                                <a>Add to Worksheet</a>
-                            </div>
-                </div>
-    <p><br></p>
-</div>
-
-</section>
-
 
 <!-- Footer -->
 <footer class="text-center">
