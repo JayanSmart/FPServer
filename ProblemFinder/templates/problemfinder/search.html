@@ -153,16 +153,22 @@
         <h3>Search Results</h3>
 
         {%  block content %}
-            {% for question in object_list %}
-                <p></p>
-                <div class="answerRow">
-                 <h5>{{ question.title }}</h5>
-                <p style="text-align:left;float:right;">{{ question.tags }}</p>
-                <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
-                <p><br></p>
-                </div>
-            {%  endfor %}
+            {% if question_list %}
+                {% for question in object_list %}
+                    <p></p>
+                    <div class="answerRow">
+                     <h5>{{ question.title }}</h5>
+                    <p style="text-align:left;float:right;">{{ question.tags.name }}</p>
+                    <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
+                    <p><br></p>
+                    </div>
+                {%  endfor %}
+            {% else %}}
+{               <p>No polls are available.</p>}
+{           {% endif %}
         {% endblock %}
+
+
 
 
     </div>
