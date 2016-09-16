@@ -128,14 +128,23 @@
                 <p><br></p>
 
                 {#  SEARCH BAR  #}
-                <div class="search" align="center">
-                    <div class="input-group" align="center">
-                        <input type="text" class="form-control" placeholder="search keyword(s) here">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
+{#                <div class="search" align="center">#}
+{#                    <form method = "get">#}
+{#                    <div class="input-group" align="center">#}
+{#                        <input type="text" class="form-control" id="document" placeholder="search keyword(s) here">#}
+{#                        <span input type ="submit" class="input-group-btn" href="search">#}
+{#                            <button href="search" class="btn btn-default" type="button">Go!</button>#}
+{#                        </span>#}
+{#                        </div>#}
+{#                    </form>#}
+{##}
+{#                </div>#}
 
-                </div>
+
+                <form method="get" action="/search/" >
+                    <input type="text" id="searchBox" class="input-medium search-query" name="q" placeholder="Search">
+                    <input type="submit" class="btn" value="Search" >
+                </form>
 
                 <p><br></p>
 
@@ -167,7 +176,7 @@
                     {#  Add footer content#}
                     <h3></h3>
 
-<a href="search" class="btn btn-primary btn-lg " role="button" >Show Results</a>
+                    <a href="search" class="btn btn-primary btn-lg " role="button" >Show Results</a>
 
 
                 </div>
