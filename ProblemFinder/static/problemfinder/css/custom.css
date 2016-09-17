@@ -15,7 +15,7 @@ p{
 }
 .answerRowRight{
     float: right;
-    width: 20%;
+    width: 15%;
     padding: 10px;
     border-radius: 10px;
     border-spacing: 15px;
@@ -137,16 +137,8 @@ header .intro-text .name{
     margin-right: 3px;
 }
 
-.leftRow{
-    display:block;
-    float: left;
-    width: 70%;
-}
-.rightRow{
-    display:block;
-    float: right;
-    width: 30%;
-}
+
+
 
 
 

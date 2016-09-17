@@ -150,13 +150,22 @@
 
                                 <div class="answerRowRight">
 
-                                    {% for i in soln_lang %}
-                                        <p class="langDisplay" >{{ i }}</p>
+                                    {% for soln in question.solutions.all %}
+                                        {% if soln.language == "2" %}
+                                            <p class="langDisplay" >Java</p>
+                                        {% endif %}
+                                        {% if soln.language == "3" %}
+                                            <p class="langDisplay" >Python</p>
+                                        {% endif %}
+                                        {% if soln.language == "4" %}
+                                            <p class="langDisplay" >C++</p>
+                                        {% endif %}
+
                                     {% endfor %}
 
 
                                     {% for tag in question.tags.all %}
-                                        <p class="tagDisplay" >{{ tag }} </p>
+                                        <p class="tagDisplay" >{{ tag }}</p>
                                     {% endfor %}
 
                                 </div>

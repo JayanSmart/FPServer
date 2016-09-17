@@ -40,7 +40,6 @@ def search(request):
         query = request.GET['q']
 
     lan = request.GET.get('language', '----')
-
     difft = request.GET.get('difficulty', '----')
 
     if difft == "Difficulty" or difft == "----":
@@ -58,25 +57,20 @@ def search(request):
                 new_question_list.append(result)
 
 
-    soln_lang = []
-    for quest in new_question_list:
-        for soln in quest.solutions.all():
-            soln_lang.append(soln.language)  #Adding question solution tags
-
-    new_soln_lang = []
-    for i in soln_lang:
-        if(i == "2"):
-            new_soln_lang.append("Java")
-        elif(i == "3"):
-            new_soln_lang.append("Python")
-        elif(i == "4"):
-            new_soln_lang.append("C++")
-    print(new_soln_lang)
-
-
-
-
-
+    # soln_lang = []
+    # for quest in new_question_list:
+    #     for soln in quest.solutions.all():
+    #         soln_lang.append(soln.language)  #Adding question solution tags
+    #
+    # new_soln_lang = []
+    # for i in soln_lang:
+    #     if(i == "2"):
+    #         new_soln_lang.append("Java")
+    #     elif(i == "3"):
+    #         new_soln_lang.append("Python")
+    #     elif(i == "4"):
+    #         new_soln_lang.append("C++")
+    # print(new_soln_lang)
 
 
     context = {
@@ -86,7 +80,6 @@ def search(request):
         'difficulty': difficulty,
         'languagesel': lan,
         'difft':difft,
-        'soln_lang': new_soln_lang,
     }
 
     # This is a shortcut and saves having to use the loader class
