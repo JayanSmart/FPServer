@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from .models import Question
 from .models import Search
-import json
+
 
 # Create your views here.
 def index(request):
@@ -27,23 +27,23 @@ def index(request):
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/index.html", context)
 
+
 def search(request):
     #Taking care of the 404 error
     try:
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-    languages = {"-----","C++", "Java", "Python"}
-    difficulty = {"-----","Easy", "Moderate", "Hard"}
+    languages = {"----", "C++", "Java", "C#", "Python"}
+    difficulty = {"----", "Easy", "Moderate", "Hard"}
     query = ''
     found = None
 
     if ('q' in request.GET) and request.GET['q'].strip():
         query = request.GET['q']
 
-    lan = request.GET['language']
-    #diff = request.GET['difficulty']
-
+    lan = request.GET.get('language', '----')
+    difficulty = request.GET.get('difficulty', '----')
     newQuestionList = []
     searchResult = Search(query, questions_list)
 
@@ -59,7 +59,7 @@ def search(request):
         'query': query,
         'languages': languages,
         'difficulty': difficulty,
-        'languagesel':lan
+        'languagesel': lan,
     }
 
     # This is a shortcut and saves having to use the loader class

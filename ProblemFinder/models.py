@@ -59,11 +59,29 @@ class Question(models.Model):
     """
     This is a generic Question Class
     """
+    #Enums for difficulty and language
+    DIFFICULTY_CHOICES = (
+        ('1', '----'),
+        ('1', 'Easy'),
+        ('2', 'Moderate'),
+        ('1', 'Hard')
+    )
+
+    LANGUAGE_CHOICES = (
+        ('1', '----'),
+        ('1', 'Java'),
+        ('2', 'Python'),
+        ('1', 'C++')
+    )
+
+
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)
     question_PDF = models.FileField(upload_to='ProblemFinder/pdf/', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES)
+    language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
     tags = models.ManyToManyField(Tag)
     solutions = models.ManyToManyField(Solution)
 
