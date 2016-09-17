@@ -26,6 +26,7 @@ class Tag(models.Model):
     def get_children(self):
         return self.children
 
+
 class Solution(models.Model):
     """
     This is a generic Solution Class
@@ -65,6 +66,7 @@ class Question(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
     solutions = models.ManyToManyField(Solution)
+
 
     def __str__(self):
         return self.title
