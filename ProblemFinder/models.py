@@ -100,14 +100,13 @@ def new_tag(name, parent):
         parent_tag.add_child(made_tag)
 
 #The Search Algorithm (in progress)
-def search(difficulty, language, tagList):
-    for i in Question:
-        for j in Question.tags:
-            if j == difficulty:
-                if j == language:
-                    for k in tagList:
-                        if j == k:
-                            return i
+def Search(query, questions_list):
+
+#Title Search
+    for i in questions_list:
+        print(i.title)
+        if query.lower() in i.title.lower():
+            print("xxxxxxxx")
 
 #Initialising search variables from search.html
 def populateSearch():

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .models import Question
-
+from .models import Search
 
 # Create your views here.
 def index(request):
@@ -33,12 +33,22 @@ def search(request):
         'question_list': questions_list
     }
 
+
+
+
+
+
+    query = ''
+    found = None
+
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query = request.GET['q']
+
+
+
+    Search(query,questions_list)
+
+
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
-
-
-
-def search_req(request):
-    if request.method == 'GET':
-        search_query = request.GET.get('q',None)
 
