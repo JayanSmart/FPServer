@@ -149,39 +149,44 @@
                     <div class="answerRow">
 
 
-                             <h4>{{ question.title }}</h4>
+
+                                <div class="answerRowRight">
+
+                                    <p class="langDisplay" >
+                                                {% for i in soln_lang %}
+                                                    {{ i }}
+                                                {% endfor %}
+                                        </p>
+
+                                            {% for tag in question.tags.all %}
+                                                <p class="tagDisplay" >{{ tag }}  </p>
+                                            {% endfor %}
+
+                                </div>
+
+                            <div class="answerRowLeft">
+
+                                <h4>{{ question.title }}</h4>
+
+                                {% if question.question_URL %}
+                                    <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
+                                    <p>{{ question.question_text }}</p>
+                                {% endif %}
+
+                                {% if question.question_PDF %}
+                                    <a target="_blank" href="{{ question.question_PDF }}">{{ question.question_PDF }} </a>
+                                    <p>{{ question.question_text }}</p>
+                                {% endif %}
+
+                                {% if not question.question_PDF and not question.question_URL %}
+                                    <p>{{ question.question_text }}</p>
+                                {% endif %}
+
+                                <p><br></p>
+                            </div>
 
 
-                            <p class="langDisplay" >
-                                    {% for i in soln_lang %}
-                                        {{ i }}
-                                    {% endfor %}
-                            </p>
 
-                                {% for tag in question.tags.all %}
-                                    <p class="tagDisplay" >{{ tag }} </p>
-                                {% endfor %}
-
-                            {% if question.question_URL %}
-                                <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
-                                <p>{{ question.question_text }}</p>
-                            {% endif %}
-
-                            {% if question.question_PDF %}
-                                <a target="_blank" href="{{ question.question_PDF }}">{{ question.question_PDF }} </a>
-                                <p>{{ question.question_text }}</p>
-                            {% endif %}
-
-                            {% if not question.question_PDF and not question.question_URL %}
-                                <p>{{ question.question_text }}</p>
-                            {% endif %}
-
-
-
-
-
-
-                    <p><br></p>
                     </div>
                 {%  endfor %}
         {% endblock %}

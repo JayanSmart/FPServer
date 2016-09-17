@@ -10,6 +10,26 @@ p{
     border-radius: 10px;
     border-spacing: 15px;
     background-color: white;
+    width: 100%;
+    display: inline-block;
+}
+.answerRowRight{
+    float: right;
+    width: 20%;
+    padding: 10px;
+    border-radius: 10px;
+    border-spacing: 15px;
+    background-color: white;
+    display: inline-block;
+}
+.answerRowLeft{
+    float: left;
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border-spacing: 15px;
+    background-color: white;
+    display: inline-block;
 }
 
 .quicksearch{
