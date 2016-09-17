@@ -60,18 +60,3 @@ def search(request):
 
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
-
-def get_results(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        res = Question.objects.order_by('title')
-        results = []
-        for drug in res:
-
-            print(drug)
-
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
