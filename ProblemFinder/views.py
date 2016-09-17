@@ -2,7 +2,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Question
+from .models import Question, Solution
 from .models import search_alg
 
 
@@ -14,10 +14,10 @@ def index(request):
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-
-    languages = {"----", "C++", "Java", "Python"}
-    difficulty = {"----", "Easy", "Moderate", "Hard"}
-
+    languages = Solution.LANGUAGE
+    #languages = {"----", "C++", "Java", "Python"}
+    #difficulty = {"----", "Easy", "Moderate", "Hard"}
+    difficulty = Question.DIFFICULTY
 
 
     context = {
@@ -38,7 +38,9 @@ def search(request):
         raise Http404("Question does not exist")
     languages = {"----", "C++", "Java", "Python"}
     #languages = Question.LANGUAGE_CHOICES
-    difficulty = {"----", "Easy", "Moderate", "Hard"}
+    #difficulty = {"----", "Easy", "Moderate", "Hard"}
+    languages = Solution.LANGUAGE
+    difficulty = Question.DIFFICULTY
     query = ''
     found = None
 

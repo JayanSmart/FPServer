@@ -152,25 +152,23 @@
 
 
                <form method="get" action="search" >
-                    <select id="dLanguages" name = "language">
-                    <option value="%">Language</option>
+                LANGUAGE:
+                       <select id="dLanguages" name = "language" required>
+
                     {% for entry in languages %}
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
                 </select>
+                    DIFFICULTY:
+                <select required id="dDifficulty" name = "difficulty" >
 
-                <select id="dDifficulty" name = "difficulty" >
-                    <option value="%">Difficulty</option>
                     {% for entry in difficulty %}
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
-
-                   <p><br></p>
-
                 </select>
-                               <p><br></p>
 
-                    <input type="text" id="searchBox" class="input-medium" name="q" placeholder="Search..." >
+                    <p><br></p>
+                    <input type="text" id="searchBox"  class="input-medium" name="q" placeholder="Search..." >
                     <input type="submit" class="btn" value="Search" >
                 </form>
 
