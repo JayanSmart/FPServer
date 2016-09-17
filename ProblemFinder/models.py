@@ -106,7 +106,7 @@ def Search(query, questions_list):
     for i in questions_list:
         print(i.title)
         if query.lower() in i.title.lower():
-            print("xxxxxxxx")
+            return i.title
 
 #Initialising search variables from search.html
 def populateSearch():

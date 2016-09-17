@@ -150,8 +150,8 @@
 <section>
     <div class="container">
         <p><br></p>
-        <h3>Search Results</h3>
-        <div>You searched for: {{ q }} </div>
+        <h3 class="searchTitle">Search Results</h3>
+        <div class="searchTitle">You searched for: {{ q }} <p><br></p></div>
 
         {%  block content %}
 
@@ -159,15 +159,12 @@
                     <p></p>
                     <div class="answerRow">
                      <h5>{{ question.title }}</h5>
-                    <p style="text-align:left;float:right;">{{ question.tags.name }}</p>
+                    <p style="text-align:left;float:right;">{{ question.tags }}</p>
                     <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
                     <p><br></p>
                     </div>
                 {%  endfor %}
         {% endblock %}
-
-
-
 
     </div>
 </section>

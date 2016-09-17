@@ -28,16 +28,6 @@ def search(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
-
-    context = {
-        'question_list': questions_list
-    }
-
-
-
-
-
-
     query = ''
     found = None
 
@@ -45,8 +35,23 @@ def search(request):
         query = request.GET['q']
 
 
+    newQuestionList = []
+    newQuestionList.append(Search(query, questions_list))
 
-    Search(query,questions_list)
+    context = {
+        'question_list': newQuestionList
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     # This is a shortcut and saves having to use the loader class
