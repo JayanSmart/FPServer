@@ -36,16 +36,3 @@ def search(request):
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
 
-def form_view(request):
-
-    try:
-        questions_list = Question.objects.order_by('title')
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
-
-
-    context = {
-        'languages': questions_list
-    }
-    return render(request, "problemfinder/search.html", context=context)
-

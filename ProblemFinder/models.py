@@ -75,10 +75,7 @@ class Question(models.Model):
     def remove_tag(self, tag):
         self.tags.remove(tag)
 
-    name = models.CharField(max_length=512)
 
-    def __unicode__(self):
-        return self.name
 
 
 
