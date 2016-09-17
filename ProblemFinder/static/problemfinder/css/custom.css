@@ -81,39 +81,19 @@ header .intro-text .name{
 
 
 
-form {
-                width:500px;
-                margin:50px auto;
-}
-.search {
-                padding:8px 15px;
-                border:0px solid #dbdbdb;
-}
-.button {
-                position:relative;
-                padding:6px 15px;
-                left:-8px;
-                border:2px solid #207cca;
-                background-color:#207cca;
-                color:#fafafa;
-}
-.button:hover  {
-                background-color:#fafafa;
-                color:#207cca;
-}
-
 .input-medium {
     color:black;
     position:relative;
-    width: 130px;
+    margin: 30px auto;
+    height: 33px;
+    width: 150px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 
 }
 
 .input-medium:focus {
-width: 80%;
-
+    width: 70%;
 }
 
 .searchTitle{
