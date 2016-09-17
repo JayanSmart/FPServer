@@ -15,8 +15,10 @@ def index(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
-    languages = {"C++", "Java", "C#", "Python"}
-    difficulty = {"Easy", "Moderate", "Hard"}
+    languages = {"----", "C++", "Java", "Python"}
+    difficulty = {"----", "Easy", "Moderate", "Hard"}
+
+
 
     context = {
         'question_list': questions_list,
@@ -34,7 +36,8 @@ def search(request):
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-    languages = {"----", "C++", "Java", "C#", "Python"}
+    languages = {"----", "C++", "Java", "Python"}
+    #languages = Question.LANGUAGE_CHOICES
     difficulty = {"----", "Easy", "Moderate", "Hard"}
     query = ''
     found = None
