@@ -123,7 +123,34 @@
                         <li><a href="#">Add new language...</a></li>
                     </ul>
                 </div>
-                
+                {#                <select id="dLanguages" name = "language">#}
+{#                    <option value="%">Language</option>#}
+{#                    {% for entry in languages %}#}
+{#                        <option value="{{ entry.title }}">{{ entry.tags.name }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{##}
+{#                <select id="dDifficulty" name = "difficulty" >#}
+{#                    <option value="%">Difficulty</option>#}
+{#                    {% for entry in difficulty %}#}
+{#                        <option value="{{ entry.id }}">{{ entry.name }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{##}
+
+
+                {#  SEARCH BAR  #}
+{#                <div class="search" align="center">#}
+{#                    <form method = "get">#}
+{#                    <div class="input-group" align="center">#}
+{#                        <input type="text" class="form-control" id="document" placeholder="search keyword(s) here">#}
+{#                        <span input type ="submit" class="input-group-btn" href="search">#}
+{#                            <button href="search" class="btn btn-default" type="button">Go!</button>#}
+{#                        </span>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+
                 <p><br></p>
 
                <form method="get" action="search" >
@@ -178,7 +205,7 @@
                 <div class="footer-col col-md-4">
 
                     {#  Add footer content#}
-                    <h3>Footer</h3>
+                    <a href="" class="btn btn-primary btn-lg " role="button" >Hide Results</a>
 
                 </div>
                 <div class="footer-col col-md-4">

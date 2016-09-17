@@ -103,7 +103,9 @@ form {
 }
 
 .input-medium {
-    color:black
+    color:black;
+    position:relative;
+
 }
 
 .searchTitle{
