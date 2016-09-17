@@ -84,7 +84,7 @@ header .intro-text .name{
 .input-medium {
     color:black;
     position:relative;
-    margin: 100px auto;
+    margin: 30px auto;
     height: 33px;
     width: 150px;
     -webkit-transition: width 0.4s ease-in-out;
