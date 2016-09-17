@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .models import Question
-from .models import Search
+from .models import search_alg
 
 
 # Create your views here.
@@ -47,8 +47,13 @@ def search(request):
 
     lan = request.GET.get('language', '----')
     difft = request.GET.get('difficulty', '----')
+
+    if difft == "Difficulty" or "----":
+        difft = "Not Selected"
+
+
     newQuestionList = []
-    searchResult = Search(query, questions_list)
+    searchResult = search_alg(query, questions_list, lan, difft)
 
     if(searchResult == questions_list):
         newQuestionList = searchResult

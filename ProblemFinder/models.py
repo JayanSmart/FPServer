@@ -117,14 +117,18 @@ def new_tag(name, parent):
 
 
 # The Search Algorithm (in progress)
-def Search(query, questions_list):
-    listReturn = []  # The list which we will be returning
+def search_alg(query, questions_list, language, difficulty):
+    list_return = []  # The list which we will be returning
 
     for question in questions_list:
 
+        if query.lower == "----" or "Language":
+
         # Title name Search
-        if query.lower() in question.title.lower():  # If the search query is in the database of questions
-            listReturn.append(question)  # Add to results list
+            if query.lower() in question.title.lower():  # If the search query is in the database of questions
+                list_return.append(question)  # Add to results list
+
+
 
         # Tag Search
         if question.tags == "ProblemFinder.Tag.None":
@@ -133,9 +137,9 @@ def Search(query, questions_list):
             print(question.tags)
             for tag in question.tags.all():  # Loop through all of the questions tags and look for match
                 if str(tag).split('.')[-1] == query:
-                    listReturn.append(question)  # If match then append to list
+                    list_return.append(question)  # If match then append to list
 
-    return listReturn
+    return list_return
 
 
 # Initialising search variables from search.html
