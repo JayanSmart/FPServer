@@ -100,6 +100,7 @@ header .intro-text .name{
 
 /* Display tag in box*/
 .tagDisplay{
+    display:block;
     border: 2px solid gold;
     border-radius: 5px;
     padding: 5px;
@@ -108,11 +109,24 @@ header .intro-text .name{
 
 /* Display lang inbox*/
 .langDisplay{
+    display:block;
     border: 2px solid green;
     border-radius: 5px;
     padding: 5px;
     float: right;
 }
+
+.leftRow{
+    display:block;
+    float: left;
+    width: 70%;
+}
+.rightRow{
+    display:block;
+    float: right;
+    width: 30%;
+}
+
 
 
 
