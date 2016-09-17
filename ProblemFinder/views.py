@@ -46,9 +46,10 @@ def search(request):
         query = request.GET['q']
 
     lan = request.GET.get('language', '----')
+
     difft = request.GET.get('difficulty', '----')
 
-    if difft == "Difficulty" or "----":
+    if difft == "Difficulty" or difft == "----":
         difft = "Not Selected"
 
 
