@@ -60,6 +60,7 @@ def search(request):
         'languages': languages,
         'difficulty': difficulty,
         'languagesel': lan,
+        'difft':difft,
     }
 
     # This is a shortcut and saves having to use the loader class
