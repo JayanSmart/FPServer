@@ -79,8 +79,6 @@ header .intro-text .name{
   border-color: #222;
 }
 
-
-
 .input-medium {
     color:black;
     position:relative;
@@ -89,11 +87,11 @@ header .intro-text .name{
     width: 150px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-
 }
 
+/*Search bar dynamic size expansion */
 .input-medium:focus {
-    width: 70%;
+    width: 35%;
 }
 
 .searchTitle{

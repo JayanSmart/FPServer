@@ -178,6 +178,12 @@
 
         {%  block content %}
 
+                {% if not question_list %}
+                    <div class="answerRow">
+                     <h5>Unfortunately no questions were found for you search criteria :(</h5>
+                    </div>
+                {% endif %}
+
                 {% for question in question_list %}
                     <p></p>
                     <div class="answerRow">

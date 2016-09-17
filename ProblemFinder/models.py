@@ -77,9 +77,6 @@ class Question(models.Model):
 
 
 
-
-
-
 # Misc Functions
 
 # This is for the Tag model
@@ -101,18 +98,30 @@ def new_tag(name, parent):
 
 #The Search Algorithm (in progress)
 def Search(query, questions_list):
-    listReturn = []
-#Title Search
-    for i in questions_list:
-        if query.lower() in i.title.lower():
-            listReturn.append(i.title)
-        else:
-            continue
+    listReturn = []                 #The list which we will be returning
 
-    if(listReturn == []):
-        return questions_list
-    else:
-        return listReturn
+
+    for question in questions_list:
+
+        # Title name Search
+        if query.lower() in question.title.lower():  #If the search query is in the database of questions
+            listReturn.append(question)              #Add to results list
+
+        #Tag Search (CRASHING)
+        # if question.tags == "ProblemFinder.Tag.None":
+        #     continue
+        # else:
+        #     print(question.tags)
+        #     for tag in question.tags:               #Loop through all of the questions tags and look for match
+        #         if query.lower() in tag.lower():
+        #             listReturn.append(question)     #If match then append to list
+
+
+
+
+    return listReturn
+
+
 
 #Initialising search variables from search.html
 def populateSearch():
