@@ -15,9 +15,7 @@ class Tag(models.Model):
 
     def __str__(self):
         output = ''
-        if self.parent is not None:
-            output += str(self.parent)
-        return (output + ':' + self.name).strip(':')
+        return (self.name).strip(':')
 
     def add_tag(self, name, parent):
         new_tag(name, parent)
