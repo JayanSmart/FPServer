@@ -34,9 +34,6 @@ def search(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query = request.GET['q']
 
-
-
-
     newQuestionList = []
     searchResult = Search(query, questions_list)
 

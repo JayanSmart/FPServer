@@ -198,7 +198,23 @@
                     <div class="answerRow">
                      <h5>{{ question.title }}</h5>
                     <p style="text-align:left;float:right;">{{ question.tags }}</p>
-                    <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
+
+                    {% if question.question_URL %}
+                        <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
+                        <p>{{ question.question_text }}</p>
+                    {% endif %}
+
+                    {% if question.question_PDF %}
+                        <a target="_blank" href="{{ question.question_PDF }}pdf fuck">{{ question.question_PDF }} </a>
+                        <p>{{ question.question_text }}</p>
+                    {% endif %}
+
+                    {% if not question.question_PDF and not question.question_URL %}
+                        <a target="_blank" href="{{ question.question_PDF }}">{{ question.question_PDF }} </a>
+                        <p>{{ question.question_text }}</p>
+                    {% endif %}
+
+
                     <p><br></p>
                     </div>
                 {%  endfor %}
