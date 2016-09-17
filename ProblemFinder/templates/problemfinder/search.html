@@ -151,16 +151,17 @@
 
 
 
-               <form method="get" action="search" >
+                <form method="get" action="search" >
                 LANGUAGE:
                        <select id="dLanguages" name = "language" required>
-
+                           <option selected="selected" disabled="disabled">Select a Language</option>
                     {% for entry in languages %}
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
                 </select>
                     DIFFICULTY:
                 <select required id="dDifficulty" name = "difficulty" >
+                    <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
                     {% for entry in difficulty %}
                         <option value="{{ entry }}">{{ entry }}</option>
@@ -171,6 +172,7 @@
                     <input type="text" id="searchBox"  class="input-medium" name="q" placeholder="Search..." >
                     <input type="submit" class="btn" value="Search" >
                 </form>
+
 
                 <p><br></p>
 
