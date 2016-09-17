@@ -69,7 +69,7 @@ class Question(models.Model):
     This is a generic Question Class
     """
 
-    # Enums for difficulty
+    # Enums for difficulty to show stuff
     DIFFICULTY_CHOICES = (
         ('1', '----'),
         ('2', 'Easy'),
