@@ -154,8 +154,8 @@
         <div>You searched for: {{ query }} </div>
 
         {%  block content %}
-            {% if question_list %}
-                {% for question in object_list %}
+
+                {% for question in question_list %}
                     <p></p>
                     <div class="answerRow">
                      <h5>{{ question.title }}</h5>
@@ -164,9 +164,6 @@
                     <p><br></p>
                     </div>
                 {%  endfor %}
-            {% else %}}
-{               <p>No polls are available.</p>}
-{           {% endif %}
         {% endblock %}
 
 
