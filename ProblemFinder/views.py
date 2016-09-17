@@ -15,7 +15,7 @@ def index(request):
         raise Http404("Question does not exist")
 
     languages = {"C++", "Java", "C#", "Python"}
-    difficulty = {"Easy", "Moderate", "Hard", "Kamakazi"}
+    difficulty = {"Easy", "Moderate", "Hard"}
 
     context = {
         'question_list': questions_list,
@@ -32,7 +32,8 @@ def search(request):
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-
+    languages = {"C++", "Java", "C#", "Python"}
+    difficulty = {"Easy", "Moderate", "Hard"}
     query = ''
     found = None
 
@@ -51,7 +52,9 @@ def search(request):
 
     context = {
         'question_list': newQuestionList,
-        'query': query
+        'query': query,
+        'languages': languages,
+        'difficulty': difficulty
     }
 
     # This is a shortcut and saves having to use the loader class
