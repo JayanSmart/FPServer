@@ -206,13 +206,13 @@
                 {% for question in question_list %}
                     <p></p>
                     <div class="answerRow">
-                     <h5>{{ question.title }}</h5>
+                     <h4>{{ question.title }}</h4>
+
+                        <p class="langDisplay" >{{ languagesel }} </p>
 
                         {% for tag in question.tags.all %}
-                            <p class="tagDisplay" style="text-align:left;float:right;">{{ tag }} </p>
+                            <p class="tagDisplay" >{{ tag }} </p>
                         {% endfor %}
-
-
 
                     {% if question.question_URL %}
                         <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
