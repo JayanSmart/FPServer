@@ -105,6 +105,14 @@ form {
 .input-medium {
     color:black;
     position:relative;
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+
+}
+
+.input-medium:focus {
+width: 80%;
 
 }
 
