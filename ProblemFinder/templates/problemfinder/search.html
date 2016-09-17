@@ -32,9 +32,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <script type="text/javascript">
+      function moveWin()
+      {
+        window.scroll(0,655);
+
+      }
+      </script>
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" onLoad="moveWin();">
 
 <!-- PYTHON - Add later in correct area -->
 {#    this is all me showing what django does#}
@@ -77,6 +84,7 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+
 
 <!-- Header -->
 <header>
@@ -159,6 +167,7 @@
                 </form>
 
                 <p><br></p>
+
 
                 <button type="button" class="btn btn-primary" href="search.html">
                     <a href="search">Show All Questions</a>

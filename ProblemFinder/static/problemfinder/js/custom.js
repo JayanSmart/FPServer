@@ -7,12 +7,11 @@ $(".dropdown-menu li a").click(function(){
 });
 
 
-
  function validate()
  {
-    if(document.getElementById('q').value == "")
-        {
-            alert("fill db");
-            return false;
-        }
+     if(document.getElementById('q').value == "")
+     {
+         alert("fill db");
+         return false;
+     }
 }
