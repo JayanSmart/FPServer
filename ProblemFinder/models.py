@@ -86,6 +86,7 @@ class Question(models.Model):
     question_URL = models.URLField(blank=True)
     question_PDF = models.FileField(upload_to='ProblemFinder/pdf/', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
+    difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES)
     tags = models.ManyToManyField(Tag)
     solutions = models.ManyToManyField(Solution)
     visible = models.BooleanField(default=True)
