@@ -60,7 +60,7 @@ class Question(models.Model):
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)
-    question_PDF = models.FileField(upload_to='uploads/', blank=True)
+    question_PDF = models.FileField(upload_to='ProblemFinder/pdf/', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
     solutions = models.ManyToManyField(Solution)
