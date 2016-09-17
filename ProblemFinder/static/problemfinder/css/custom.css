@@ -97,3 +97,12 @@ header .intro-text .name{
 .searchTitle{
     color: white;
 }
+
+/* Display tag in box*/
+.tagDisplay{
+    border: 2px solid gold;
+    border-radius: 5px;
+    padding: 5px
+
+}
+
