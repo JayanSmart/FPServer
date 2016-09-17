@@ -134,6 +134,7 @@ header .intro-text .name{
     border-radius: 5px;
     padding: 5px;
     float: right;
+    margin-right: 3px;
 }
 
 .leftRow{

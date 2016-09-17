@@ -148,19 +148,16 @@
                     <p></p>
                     <div class="answerRow">
 
-
-
                                 <div class="answerRowRight">
 
-                                    <p class="langDisplay" >
-                                                {% for i in soln_lang %}
-                                                    {{ i }}
-                                                {% endfor %}
-                                        </p>
+                                    {% for i in soln_lang %}
+                                        <p class="langDisplay" >{{ i }}</p>
+                                    {% endfor %}
 
-                                            {% for tag in question.tags.all %}
-                                                <p class="tagDisplay" >{{ tag }}  </p>
-                                            {% endfor %}
+
+                                    {% for tag in question.tags.all %}
+                                        <p class="tagDisplay" >{{ tag }} </p>
+                                    {% endfor %}
 
                                 </div>
 
