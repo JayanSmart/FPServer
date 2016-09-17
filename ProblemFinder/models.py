@@ -81,8 +81,6 @@ class Question(models.Model):
 
     DIFFICULTY = {"----","Easy", "Moderate", "Hard"}
 
-
-
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)

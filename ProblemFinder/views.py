@@ -1,5 +1,4 @@
 from django.http import Http404
-from django.http import HttpResponse
 from django.shortcuts import render
 
 from .models import Question, Solution
@@ -15,15 +14,11 @@ def index(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
     languages = Solution.LANGUAGE
-    #languages = {"----", "C++", "Java", "Python"}
-    #difficulty = {"----", "Easy", "Moderate", "Hard"}
     difficulty = Question.DIFFICULTY
-
-
     context = {
         'question_list': questions_list,
-        'languages':languages,
-        'difficulty':difficulty
+        'languages': languages,
+        'difficulty': difficulty
     }
 
     # This is a shortcut and saves having to use the loader class
@@ -36,9 +31,6 @@ def search(request):
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-    languages = {"----", "C++", "Java", "Python"}
-    #languages = Question.LANGUAGE_CHOICES
-    #difficulty = {"----", "Easy", "Moderate", "Hard"}
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
     query = ''
@@ -55,18 +47,18 @@ def search(request):
         difft = "Not Selected"
 
 
-    newQuestionList = []
+    new_question_list = []
     searchResult = search_alg(query, questions_list, lan, difft)
 
-    if(searchResult == questions_list):
-        newQuestionList = searchResult
+    if searchResult == questions_list:
+        new_question_list = searchResult
     else:
-        if(isinstance(searchResult, list)):
+        if isinstance(searchResult, list):
             for result in searchResult:
-                newQuestionList.append(result)
+                new_question_list.append(result)
 
     context = {
-        'question_list': newQuestionList,
+        'question_list': new_question_list,
         'query': query,
         'languages': languages,
         'difficulty': difficulty,
