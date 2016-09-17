@@ -57,6 +57,28 @@ def search(request):
             for result in searchResult:
                 new_question_list.append(result)
 
+
+    soln_lang = []
+    for quest in new_question_list:
+        for soln in quest.solutions.all():
+            soln_lang.append(soln.language)  #Adding question solution tags
+
+    new_soln_lang = []
+    for i in soln_lang:
+        if(i == "2"):
+            new_soln_lang.append("Java")
+        elif(i == "3"):
+            new_soln_lang.append("Python")
+        elif(i == "4"):
+            new_soln_lang.append("C++")
+    print(new_soln_lang)
+
+
+
+
+
+
+
     context = {
         'question_list': new_question_list,
         'query': query,
@@ -64,6 +86,7 @@ def search(request):
         'difficulty': difficulty,
         'languagesel': lan,
         'difft':difft,
+        'soln_lang': new_soln_lang,
     }
 
     # This is a shortcut and saves having to use the loader class
