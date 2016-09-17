@@ -36,3 +36,9 @@ def search(request):
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
 
+
+
+def search_req(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('q',None)
+
