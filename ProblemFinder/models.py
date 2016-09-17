@@ -101,12 +101,18 @@ def new_tag(name, parent):
 
 #The Search Algorithm (in progress)
 def Search(query, questions_list):
-
+    listReturn = []
 #Title Search
     for i in questions_list:
-        print(i.title)
         if query.lower() in i.title.lower():
-            return i.title
+            listReturn.append(i.title)
+        else:
+            continue
+
+    if(listReturn == []):
+        return questions_list
+    else:
+        return listReturn
 
 #Initialising search variables from search.html
 def populateSearch():

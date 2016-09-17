@@ -38,7 +38,14 @@ def search(request):
 
 
     newQuestionList = []
-    newQuestionList.append(Search(query, questions_list))
+    searchResult = Search(query, questions_list)
+
+    if(searchResult == questions_list):
+        newQuestionList = searchResult
+    else:
+        if(isinstance(searchResult, list)):
+            for result in searchResult:
+                newQuestionList.append(result)
 
     context = {
         'question_list': newQuestionList,
