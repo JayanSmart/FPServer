@@ -43,18 +43,6 @@
 
 <body id="page-top" class="index" onLoad="moveWin();">
 
-<!-- PYTHON - Add later in correct area -->
-{#    this is all me showing what django does#}
-{#    {% if question_list %}#}
-{#    <ul>#}
-{#    {% for question in question_list %}#}
-{#        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>#}
-{#    {% endfor %}#}
-{#    </ul>#}
-{#    {% else %}#}
-{#        <p>No polls are available.</p>#}
-{#    {% endif %}#}
-
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
     <div class="container">
@@ -211,7 +199,7 @@
                     <p></p>
                     <div class="answerRow">
                      <h5>{{ question.title }}</h5>
-                    <p class="tagDisplay" style="text-align:left;float:right;">{{ question.tags }}</p>
+                    <p class="tagDisplay" style="text-align:left;float:right;">{{ question.tags.all }}</p>
 
                     {% if question.question_URL %}
                         <a target="_blank" href="{{ question.question_URL }}">{{ question.question_URL }} </a>
@@ -224,7 +212,6 @@
                     {% endif %}
 
                     {% if not question.question_PDF and not question.question_URL %}
-                        <a target="_blank" href="{{ question.question_PDF }}">{{ question.question_PDF }} </a>
                         <p>{{ question.question_text }}</p>
                     {% endif %}
 
