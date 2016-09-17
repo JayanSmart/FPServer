@@ -202,11 +202,11 @@
                     <p></p>
                     <div class="answerRow">
                      <h5>{{ question.title }}</h5>
-                    <p class="tagDisplay" style="text-align:left;float:right;">
+
                         {% for tag in question.tags.all %}
-                            {{ tag }}\n
+                            <p class="tagDisplay" style="text-align:left;float:right;">{{ tag }} </p>
                         {% endfor %}
-                            </p>
+
 
 
                     {% if question.question_URL %}
