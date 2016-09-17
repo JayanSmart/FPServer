@@ -41,6 +41,9 @@ def search(request):
     if ('q' in request.GET) and request.GET['q'].strip():
         query = request.GET['q']
 
+    language = request.GET['language']
+    difficulty = request.GET['difficulty']
+
     newQuestionList = []
     searchResult = Search(query, questions_list)
 
@@ -60,3 +63,17 @@ def search(request):
 
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
+
+# IN PROGRESS>>>>....
+def user_lookup(request):
+    # Default return list
+    results = []
+    if request.method == "GET":
+        if request.GET.has_key(u'query'):
+            value = request.GET[u'query']
+            # Ignore queries shorter than length 3
+            if len(value) > 2:
+                model_results = Question.objects.filter(name__icontains=value)
+                results = [ x.name for x in model_results ]
+    json = simplejson.dumps(results)
+    return HttpResponse(json, mimetype='application/json')

@@ -15,11 +15,3 @@ $(".dropdown-menu li a").click(function(){
          return false;
      }
 }
-
-
-$(function() {
-  $("#drugs").autocomplete({
-    source: "/views/get_drugs/",
-    minLength: 2,
-  });
-});
