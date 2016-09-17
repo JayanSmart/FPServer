@@ -14,8 +14,13 @@ def index(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
+    languages = {"C++", "Java", "C#", "Python"}
+    difficulty = {"Easy", "Moderate", "Hard", "Kamakazi"}
+
     context = {
-        'question_list': questions_list
+        'question_list': questions_list,
+        'languages':languages,
+        'difficulty':difficulty
     }
 
     # This is a shortcut and saves having to use the loader class

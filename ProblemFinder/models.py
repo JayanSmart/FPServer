@@ -28,7 +28,6 @@ class Tag(models.Model):
     def get_children(self):
         return self.children
 
-
 class Solution(models.Model):
     """
     This is a generic Solution Class
