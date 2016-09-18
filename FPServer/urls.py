@@ -17,7 +17,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^$', include('ProblemFinder.urls')),
-    url(r'^FPServer/', include('ProblemFinder.urls')),
+    url(r'^', include('ProblemFinder.urls')),
     url(r'^admin/', admin.site.urls),
 ]

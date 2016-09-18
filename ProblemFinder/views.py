@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Question, Solution
 from .models import search_alg
@@ -83,3 +83,7 @@ def search(request):
 
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
+
+
+def main(request):
+    return redirect('index')
