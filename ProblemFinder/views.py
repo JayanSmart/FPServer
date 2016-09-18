@@ -87,7 +87,6 @@ class UserFormView(View):
 
     def post(self, request):
         form = self.form_class(request.POST)
-
         if form.is_valid():
 
             user = form.save(commit=False)
@@ -98,11 +97,13 @@ class UserFormView(View):
             user.save()
 
             user = authenticate(username=username, password=password)
-
+            print(user)
             if user is not None:
+                print(user)
                 if user.is_active:
                     login(request, user)
                     return redirect('ProblemFinder:index')
-
+        else:
+            print("form invalid")
 
         return render(request, "problemfinder/login.html")
