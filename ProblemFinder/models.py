@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-import ProblemFinder
 
 
 # Create your models here.
@@ -45,7 +44,7 @@ class Solution(models.Model):
     description = models.TextField()
     solution_text = models.TextField(blank=True)
     solution_URL = models.URLField(blank=True)
-    solution_PDF = models.FileField(upload_to='uploads/', blank=True)
+    solution_PDF = models.FileField()
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
     tags = models.ManyToManyField(Tag)
 
@@ -85,7 +84,7 @@ class Question(models.Model):
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)
-    question_PDF = models.FileField(upload_to='./ProblemFinder/pdf/', blank=True)
+    question_PDF = models.FileField()
     created_date = models.DateTimeField(default=timezone.now)
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES)
     tags = models.ManyToManyField(Tag)

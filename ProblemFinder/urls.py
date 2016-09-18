@@ -1,9 +1,8 @@
 from django.conf.urls import url
 from django.views.generic import ListView
 
-from . import views
-
 from ProblemFinder.models import Question
+from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

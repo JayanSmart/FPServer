@@ -1,7 +1,6 @@
 # This is a list of all the dependencies we are using. Please add any as think of/use them
 
-Python3 <version>       #complete
-Django <version>        #complete
-JavaScrips <version>    #complete
+Python3 <3.5.7>
+Django <1.8.0>
 
 django-cleanup <0.4.2>

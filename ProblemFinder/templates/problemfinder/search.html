@@ -193,7 +193,7 @@
                                 {% endif %}
 
                                 {% if question.question_PDF %}
-                                    <a target="_blank" href="{{ question.question_PDF }}">{{ question.question_PDF }} </a>
+                                    <a target="_blank" href="{{ question.question_PDF.url }}">{{ question.question_PDF }} </a>
                                     <p>{{ question.question_text }}</p>
                                 {% endif %}
 
