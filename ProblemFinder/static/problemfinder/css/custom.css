@@ -126,11 +126,19 @@ header .intro-text .name{
     padding: 5px;
     float: right;
 }
-
-/* Display lang inbox*/
+/* Display lang in box*/
 .langDisplay{
     display:block;
     border: 2px solid green;
+    border-radius: 5px;
+    padding: 5px;
+    float: right;
+    margin-right: 3px;
+}
+/* Display difficulty in box*/
+.diffDisplay{
+    display:block;
+    border: 2px solid red;
     border-radius: 5px;
     padding: 5px;
     float: right;

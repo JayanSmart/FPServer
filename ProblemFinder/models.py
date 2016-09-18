@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
+import ProblemFinder
 
 
 # Create your models here.
@@ -140,7 +141,7 @@ def search_alg(query, questions_list, language, difficulty):
                 list_return.append(question)  # Add to results list
 
         # Tag Search
-        if question.tags == "ProblemFinder.Tag.None":
+        if question.tags.all() == "ProblemFinder.Tag.None":
             continue
         else:
             print(question.tags)  # WHY IS THIS PRINTING ProblemFinder.Tags.None??????????

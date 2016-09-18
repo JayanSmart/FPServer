@@ -52,7 +52,7 @@
                     data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="/FPServer">Finding Problems</a>
+            <a class="navbar-brand" href="/">Finding Problems</a>
         </div>
         {#   <a class="bottom-right pull-right" href="/admin/">Login</a> #}
 
@@ -87,9 +87,7 @@
                 </div>
 
                 <p><br><br></p>
-
-
-                </div>
+            </div>
 
 
                 <form method="get" action="search" >
@@ -132,9 +130,17 @@
     <div class="container">
         <p><br></p>
         <h3 class="searchTitle">Search Results</h3>
-        <p style="font-size:18px !important;" class="searchTitle">You searched for: {{ query }} </p>
-        <p style="font-size:18px !important;" class="searchTitle">Difficulty: {{ difft }} <p><br></p></p>
-
+            {% if query == "" %}
+                <p style="font-size:18px !important;" class="searchTitle">You searched for: All Questions </p>
+            {% else %}
+                <p style="font-size:18px !important;" class="searchTitle">You searched for: {{ query }} </p>
+            {% endif %}
+                <p style="font-size:18px !important;" class="searchTitle">Difficulty: {{ difft }} </p>
+            {% if languagesel == "----" %}
+                <p style="font-size:18px !important;" class="searchTitle">Language: Not Selected <p><br></p></p>
+            {% else %}
+                <p style="font-size:18px !important;" class="searchTitle">Language: {{ languagesel }} <p><br></p></p>
+            {% endif %}
 
         {%  block content %}
 
@@ -160,14 +166,21 @@
                                         {% if soln.language == "4" %}
                                             <p class="langDisplay" >C++</p>
                                         {% endif %}
-
                                     {% endfor %}
 
+                                    {% if question.difficulty == "2" %}
+                                            <p class="diffDisplay" >Easy</p>
+                                    {% endif %}
+                                    {% if question.difficulty == "3" %}
+                                            <p class="diffDisplay" >Moderate</p>
+                                    {% endif %}
+                                    {% if question.difficulty == "4" %}
+                                            <p class="diffDisplay" >Hard</p>
+                                    {% endif %}
 
                                     {% for tag in question.tags.all %}
                                         <p class="tagDisplay" >{{ tag }}</p>
                                     {% endfor %}
-
                                 </div>
 
                             <div class="answerRowLeft">
@@ -190,13 +203,9 @@
 
                                 <p><br></p>
                             </div>
-
-
-
                     </div>
                 {%  endfor %}
         {% endblock %}
-
     </div>
 </section>
 
