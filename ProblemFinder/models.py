@@ -130,55 +130,41 @@ def new_tag(name, parent):
 
 # The Search Algorithm (in progress)
 def search_alg(query, questions_list, language, difficulty):
-    diffHash = {'2':'Easy', '3':'Moderate','4':'Hard'}
-    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}
     list_return = []  # The list which we will be returning
 
     for question in questions_list:
-        for solution in question.solutions.all():
-            print(solution)
-        print(question.solutions.all())
 
-        # Title + Difficulty Search
+        # Title + Difficulty + Language Search
         if query.lower() in question.title.lower():  # If the search query is in the database of questions
-            if(language == "Not Selected"):
-                if(difficulty == "Not Selected"):
-                    list_return.append(question)  # Add to results list
-                else:
-                    if (diffHash.get(question.difficulty) == difficulty):
-                        list_return.append(question)  # Add to results list
+            # Call language_difficulty_check() method
+           list_return.extend(language_difficulty_check(question,language,difficulty))
 
-            elif(difficulty == "Not Selected"):
-                for solution in question.solutions.all():
-                    if (langHash.get(solution.language) == language):
-                        list_return.append(question)  # Add to results list
-
-            elif(diffHash.get(question.difficulty) == difficulty):
-                for solution in question.solutions.all():
-                    if(langHash.get(solution.language) == language):
-                        list_return.append(question)  # Add to results list
-
-        # Tag Search
-
-        print(question.tags)  # WHY IS THIS PRINTING ProblemFinder.Tags.None??????????
+        # Tag Search, Checks language + difficulty too
         for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-            if str(tag).split('.')[-1] == query:
-                list_return.append(question)  # If match then append to list
+            if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                #Call language_difficulty_check() method
+                list_return.extend(language_difficulty_check(question, language, difficulty))
 
     return list_return
 
+def language_difficulty_check(question, language, difficulty):
+    diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    #Helps difficulty search
+    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}       #Helps language search
+    list_return = []
 
-# Search for a matching Title, Tag and Difficulty
-def search_general(query, questions_list, difficulty):
-    diffs = {'2': 'Java', '3': 'Python', '4': 'C++'}
-    matched_list = []
-    # Check Difficulty (fastest)
-    for quest in questions_list:
-        if diffs[quest.difficulty] == difficulty:
-            # Check Tag (moderate)
-            if query in quest.tags.all():
-                # Check Title (slowest)
-                if query in quest.titel.split('.'):
-                    matched_list.append(quest)
+    if (language == "Not Selected"):
+        if (difficulty == "Not Selected"):  #If language and difficulty not selected
+            list_return.append(question)
+        else:
+            if (diffHash.get(question.difficulty) == difficulty):  #If language not selected but difficulty selected
+                list_return.append(question)
+    elif (difficulty == "Not Selected"):
+        for solution in question.solutions.all():              #If difficulty not selected but language selected
+            if (langHash.get(solution.language) == language):
+                list_return.append(question)
+    elif (diffHash.get(question.difficulty) == difficulty):  #If difficulty and language selected
+        for solution in question.solutions.all():
+            if (langHash.get(solution.language) == language):
+                list_return.append(question)
 
-    return matched_list
+    return list_return
