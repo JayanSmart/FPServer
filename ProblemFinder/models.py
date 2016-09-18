@@ -79,12 +79,12 @@ class Question(models.Model):
         ('4', 'Hard')
     )
 
-    DIFFICULTY = {"----","Easy", "Moderate", "Hard"}
+    DIFFICULTY = {"----", "Easy", "Moderate", "Hard"}
 
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)
-    question_PDF = models.FileField(upload_to='ProblemFinder/pdf/', blank=True)
+    question_PDF = models.FileField(upload_to='./ProblemFinder/pdf/', blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES)
     tags = models.ManyToManyField(Tag)
@@ -99,6 +99,12 @@ class Question(models.Model):
 
     def remove_tag(self, tag):
         self.tags.remove(tag)
+
+    # Create a dynamic upload url.
+    # Thinking of trying to host online?
+    # Google Drive/Dropbox account that we access from the code. I'm sure there is an API for it.
+    def get_upload_to(self):
+        return True #TODO: Finish this method
 
 
 # Misc Functions
@@ -129,17 +135,15 @@ def search_alg(query, questions_list, language, difficulty):
 
         if query.lower == "----" or "Language":
 
-        # Title name Search
+            # Title name Search
             if query.lower() in question.title.lower():  # If the search query is in the database of questions
                 list_return.append(question)  # Add to results list
-
-
 
         # Tag Search
         if question.tags == "ProblemFinder.Tag.None":
             continue
         else:
-            print(question.tags)
+            print(question.tags)  # WHY IS THIS PRINTING ProblemFinder.Tags.None??????????
             for tag in question.tags.all():  # Loop through all of the questions tags and look for match
                 if str(tag).split('.')[-1] == query:
                     list_return.append(question)  # If match then append to list
@@ -147,6 +151,17 @@ def search_alg(query, questions_list, language, difficulty):
     return list_return
 
 
-# Initialising search variables from search.html
-def populateSearch():
-    return
+# Search for a matching Title, Tag and Difficulty
+def search_general(query, questions_list, difficulty):
+    diffs = {'2': 'Java', '3': 'Python', '4': 'C++'}
+    matched_list = []
+    # Check Difficulty (fastest)
+    for quest in questions_list:
+        if diffs[quest.difficulty] == difficulty:
+            # Check Tag (moderate)
+            if query in quest.tags.all():
+                # Check Title (slowest)
+                if query in quest.titel.split('.'):
+                    matched_list.append(quest)
+
+    return matched_list

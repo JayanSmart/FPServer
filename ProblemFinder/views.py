@@ -28,13 +28,12 @@ def index(request):
 def search(request):
     #Taking care of the 404 error
     try:
-        questions_list = Question.objects.order_by('title')
+        questions_list = Question.objects.filter(visible=True).order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
     query = ''
-    found = None
 
     if ('q' in request.GET) and request.GET['q'].strip():
         query = request.GET['q']

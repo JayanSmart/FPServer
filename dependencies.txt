@@ -1,0 +1,7 @@
+# This is a list of all the dependencies we are using. Please add any as think of/use them
+
+Python3 <version>       #complete
+Django <version>        #complete
+JavaScrips <version>    #complete
+
+django-cleanup <0.4.2>
