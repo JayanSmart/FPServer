@@ -130,23 +130,24 @@ def new_tag(name, parent):
 
 # The Search Algorithm (in progress)
 def search_alg(query, questions_list, language, difficulty):
-    list_return = []  # The list which we will be returning
+    list_return = []         # The list which we will be returning
 
     for question in questions_list:
 
-        if(question.visible == False): #Checks if question has been marked as 'invisible'
+        if(question.visible == False):        #Checks if question has been marked as 'invisible'
             break
         else:
             # Title + Difficulty + Language Search
-            if query.lower() in question.title.lower():  # If the search query is in the database of questions
+            if query.lower() in question.title.lower():       # If the search query is in the database of questions
                 # Call language_difficulty_check() method
                list_return.extend(language_difficulty_check(question,language,difficulty))
 
             # Tag Search, Checks language + difficulty too
-            for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-                if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
-                    #Call language_difficulty_check() method
-                    list_return.extend(language_difficulty_check(question, language, difficulty))
+            if query != "":                                  #Only need to check tags if query is populated (optimisation)
+                for tag in question.tags.all():              # Loop through all of the questions tags and look for match
+                    if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                        #Call language_difficulty_check() method
+                        list_return.extend(language_difficulty_check(question, language, difficulty))
 
     return list_return
 
@@ -162,10 +163,10 @@ def language_difficulty_check(question, language, difficulty):
             if (diffHash.get(question.difficulty) == difficulty):  #If language not selected but difficulty selected
                 list_return.append(question)
     elif (difficulty == "Not Selected"):
-        for solution in question.solutions.all():              #If difficulty not selected but language selected
+        for solution in question.solutions.all():                  #If difficulty not selected but language selected
             if (langHash.get(solution.language) == language):
                 list_return.append(question)
-    elif (diffHash.get(question.difficulty) == difficulty):  #If difficulty and language selected
+    elif (diffHash.get(question.difficulty) == difficulty):        #If difficulty and language selected
         for solution in question.solutions.all():
             if (langHash.get(solution.language) == language):
                 list_return.append(question)
