@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 
@@ -86,13 +87,14 @@ class UserFormView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
 
             user = form.save(commit=False)
 
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            print(username+' : '+password   )
             user.set.password(password)
             user.save()
 
@@ -105,5 +107,6 @@ class UserFormView(View):
                     return redirect('ProblemFinder:index')
         else:
             print("form invalid")
+            print(form.errors)
 
         return render(request, "problemfinder/login.html")
