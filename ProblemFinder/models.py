@@ -134,16 +134,19 @@ def search_alg(query, questions_list, language, difficulty):
 
     for question in questions_list:
 
-        # Title + Difficulty + Language Search
-        if query.lower() in question.title.lower():  # If the search query is in the database of questions
-            # Call language_difficulty_check() method
-           list_return.extend(language_difficulty_check(question,language,difficulty))
+        if(question.visible == False): #Checks if question has been marked as 'invisible'
+            break
+        else:
+            # Title + Difficulty + Language Search
+            if query.lower() in question.title.lower():  # If the search query is in the database of questions
+                # Call language_difficulty_check() method
+               list_return.extend(language_difficulty_check(question,language,difficulty))
 
-        # Tag Search, Checks language + difficulty too
-        for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-            if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
-                #Call language_difficulty_check() method
-                list_return.extend(language_difficulty_check(question, language, difficulty))
+            # Tag Search, Checks language + difficulty too
+            for tag in question.tags.all():  # Loop through all of the questions tags and look for match
+                if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                    #Call language_difficulty_check() method
+                    list_return.extend(language_difficulty_check(question, language, difficulty))
 
     return list_return
 
