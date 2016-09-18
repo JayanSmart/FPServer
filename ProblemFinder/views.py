@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
 
 from .models import Question, Solution
 from .models import search_alg
@@ -81,12 +81,13 @@ def search(request):
         'languages': languages,
         'difficulty': difficulty,
         'languagesel': lan,
-        'difft':difft,
+        'difft': difft,
     }
 
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
 
 
-def main(request):
-    return redirect('index')
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'problemfinder/details.html', {'question': question})
