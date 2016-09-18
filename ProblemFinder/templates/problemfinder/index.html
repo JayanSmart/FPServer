@@ -84,7 +84,7 @@
                 <form method="get" action="search" >
                 LANGUAGE:
                        <select id="dLanguages" name = "language" required>
-<option selected="selected" disabled="disabled">Select a Language</option>
+                            <option selected="selected" disabled="disabled">Select a Language</option>
 
                     {% for entry in languages %}
                         <option value="{{ entry }}">{{ entry }}</option>
@@ -92,7 +92,7 @@
                 </select>
                     DIFFICULTY:
                 <select required id="dDifficulty" name = "difficulty" >
-<option selected="selected" disabled="disabled">Select a Difficulty</option>
+                    <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
                     {% for entry in difficulty %}
                         <option value="{{ entry }}">{{ entry }}</option>
@@ -106,14 +106,9 @@
 
                 <p><br></p>
 
-
-                {# ADD NEW QUESTION BUTTON #}
                 <button type="button" onclick="scrollWin()" class="btn btn-primary" href="search.html">
                     <a href="search">Show All Questions</a>
                 </button>
-
-
-
             </div>
         </div>
     </div>
@@ -122,31 +117,7 @@
 
 <!-- Footer -->
 <footer class="text-center">
-    <div class="footer-above">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col col-md-4">
 
-                    {#  Add footer content#}
-
-                </div>
-                <div class="footer-col col-md-4">
-
-                    {#  Add footer content#}
-                    <h3></h3>
-
-                    <a href="search" class="btn btn-primary btn-lg " role="button" >Show Results</a>
-
-
-                </div>
-                <div class="footer-col col-md-4">
-
-                    {#  Add footer content#}
-
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="footer-below">
         <div class="container">
             <div class="row">
