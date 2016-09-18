@@ -44,6 +44,9 @@ def search(request):
     if difft == "Difficulty" or difft == "----":
         difft = "Not Selected"
 
+    if lan == "Language" or lan == "----":
+        lan = "Not Selected"
+
 
     new_question_list = []
     searchResult = search_alg(query, questions_list, lan, difft)

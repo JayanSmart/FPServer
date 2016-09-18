@@ -130,24 +130,40 @@ def new_tag(name, parent):
 
 # The Search Algorithm (in progress)
 def search_alg(query, questions_list, language, difficulty):
+    diffHash = {'2':'Easy', '3':'Moderate','4':'Hard'}
+    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}
     list_return = []  # The list which we will be returning
 
     for question in questions_list:
+        for solution in question.solutions.all():
+            print(solution)
+        print(question.solutions.all())
 
-        if query.lower == "----" or "Language":
+        # Title + Difficulty Search
+        if query.lower() in question.title.lower():  # If the search query is in the database of questions
+            if(language == "Not Selected"):
+                if(difficulty == "Not Selected"):
+                    list_return.append(question)  # Add to results list
+                else:
+                    if (diffHash.get(question.difficulty) == difficulty):
+                        list_return.append(question)  # Add to results list
 
-            # Title name Search
-            if query.lower() in question.title.lower():  # If the search query is in the database of questions
-                list_return.append(question)  # Add to results list
+            elif(difficulty == "Not Selected"):
+                for solution in question.solutions.all():
+                    if (langHash.get(solution.language) == language):
+                        list_return.append(question)  # Add to results list
+
+            elif(diffHash.get(question.difficulty) == difficulty):
+                for solution in question.solutions.all():
+                    if(langHash.get(solution.language) == language):
+                        list_return.append(question)  # Add to results list
 
         # Tag Search
-        if question.tags.all() == "ProblemFinder.Tag.None":
-            continue
-        else:
-            print(question.tags)  # WHY IS THIS PRINTING ProblemFinder.Tags.None??????????
-            for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-                if str(tag).split('.')[-1] == query:
-                    list_return.append(question)  # If match then append to list
+
+        print(question.tags)  # WHY IS THIS PRINTING ProblemFinder.Tags.None??????????
+        for tag in question.tags.all():  # Loop through all of the questions tags and look for match
+            if str(tag).split('.')[-1] == query:
+                list_return.append(question)  # If match then append to list
 
     return list_return
 
