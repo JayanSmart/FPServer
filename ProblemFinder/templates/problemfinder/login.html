@@ -12,20 +12,35 @@
   <body>
 
 
-  {% block content %}
-            <div class="login-page">
-          <div class="form">
-            <form class="login-form" role="form" action="" method="post">
-                {% csrf_token %}
-              <input type="text" placeholder="username"/>
-              <input type="password" placeholder="password"/>
-              <button type="submit">login</button>
-              <p class="message">Not registered? <a href="#">Create an account</a></p>
-            </form>
-          </div>
-        </div>
-  {% endblock %}
 
+  {% extends "index.html" %}
+{% block main %}
+    <div id="login">
+        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username"  placeholder="Username">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </div>
+        </form>
+    </div>
+{% endblock %}
 
 
 
