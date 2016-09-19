@@ -21,6 +21,16 @@ def index(request):
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
 
+    userFlag = False;
+
+    if ('username' in request.GET) and request.GET['username'].strip():
+        username = request.GET['username']
+        if ('password' in request.GET) and request.GET['password'].strip():
+            password = request.GET['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                userFlag = True
+
     all_tags = []
     for question in questions_list:
         for tag in question.tags.all():
@@ -31,7 +41,8 @@ def index(request):
         'question_list': questions_list,
         'languages': languages,
         'difficulty': difficulty,
-        'tag_list': all_tags
+        'tag_list': all_tags,
+        'user': userFlag,
     }
 
     # This is a shortcut and saves having to use the loader class
