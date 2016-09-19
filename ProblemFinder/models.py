@@ -44,7 +44,7 @@ class Solution(models.Model):
     description = models.TextField()
     solution_text = models.TextField(blank=True)
     solution_URL = models.URLField(blank=True)
-    solution_PDF = models.FileField()
+    solution_PDF = models.FileField(blank=True)
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
     tags = models.ManyToManyField(Tag)
 
@@ -84,7 +84,7 @@ class Question(models.Model):
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
     question_URL = models.URLField(blank=True)
-    question_PDF = models.FileField()
+    question_PDF = models.FileField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES)
     tags = models.ManyToManyField(Tag)
@@ -154,6 +154,7 @@ def search_alg(query, questions_list, language, difficulty, user_flag):
             final_list.append(i)
 
     return final_list
+
 
 def language_difficulty_check(question, language, difficulty):
     diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    #Helps difficulty search
