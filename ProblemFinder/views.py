@@ -1,8 +1,13 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
 from .models import Question, Solution
 from .models import search_alg
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.views.generic import View
+from .forms import UserForm
 
 
 # Create your views here.
@@ -59,22 +64,6 @@ def search(request):
                 new_question_list.append(result)
 
 
-    # soln_lang = []
-    # for quest in new_question_list:
-    #     for soln in quest.solutions.all():
-    #         soln_lang.append(soln.language)  #Adding question solution tags
-    #
-    # new_soln_lang = []
-    # for i in soln_lang:
-    #     if(i == "2"):
-    #         new_soln_lang.append("Java")
-    #     elif(i == "3"):
-    #         new_soln_lang.append("Python")
-    #     elif(i == "4"):
-    #         new_soln_lang.append("C++")
-    # print(new_soln_lang)
-
-
     context = {
         'question_list': new_question_list,
         'query': query,
@@ -87,6 +76,40 @@ def search(request):
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/search.html", context)
 
+
+
+class UserFormView(View):
+    form_class = UserForm
+    template_name = 'problemfinder/login.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+
+            user = form.save(commit=False)
+
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            print(username+' : '+password   )
+            user.set.password(password)
+            user.save()
+
+            user = authenticate(username=username, password=password)
+            print(user)
+            if user is not None:
+                print(user)
+                if user.is_active:
+                    login(request, user)
+                    return redirect('ProblemFinder:index')
+        else:
+            print("form invalid")
+            print(form.errors)
+
+        return render(request, "problemfinder/login.html")
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

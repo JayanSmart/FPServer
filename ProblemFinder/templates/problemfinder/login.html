@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+         <link rel="stylesheet" type="text/css" href="{% static 'problemfinder/css/style.css' %}"/>
+
+  </head>
+
+  <body>
+
+
+  {% block content %}
+            <div class="login-page">
+          <div class="form">
+            <form class="login-form" role="form" action="" method="post">
+                {% csrf_token %}
+              <input type="text" placeholder="username"/>
+              <input type="password" placeholder="password"/>
+              <button type="submit">login</button>
+              <p class="message">Not registered? <a href="#">Create an account</a></p>
+            </form>
+          </div>
+        </div>
+  {% endblock %}
+
+
+
+
+
+  </body>
+</html>
