@@ -132,7 +132,6 @@ def search_alg(query, questions_list, language, difficulty):
     list_return = []         # The list which we will be returning
 
     for question in questions_list:
-
         if(question.visible == False):        #Checks if question has been marked as 'invisible'
             break
         else:
@@ -148,7 +147,13 @@ def search_alg(query, questions_list, language, difficulty):
                         #Call language_difficulty_check() method
                         list_return.extend(language_difficulty_check(question, language, difficulty))
 
-    return list_return
+    #Remove duplicates
+    final_list = []
+    for i in list_return:
+        if i not in final_list:
+            final_list.append(i)
+
+    return final_list
 
 def language_difficulty_check(question, language, difficulty):
     diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    #Helps difficulty search
