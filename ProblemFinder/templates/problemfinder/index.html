@@ -66,6 +66,24 @@
     <!-- /.container-fluid -->
 </nav>
 
+<datalist id="languages">
+  <option value="NICisfag">
+  <option value="CSS">
+  <option value="JavaScript">
+  <option value="Java">
+  <option value="Ruby">
+  <option value="PHP">
+  <option value="Go">
+  <option value="Erlang">
+  <option value="Python">
+  <option value="C">
+  <option value="C#">
+  <option value="C++">
+</datalist>
+
+<input type="text" list="languages">
+<datalist id="json-datalist"></datalist>
+
 <!-- Header -->
 <header>
     <div class="container" align="center">
@@ -81,6 +99,7 @@
                 <p><br><br></p>
 
 
+
                 <form method="get" action="search" >
                 LANGUAGE:
                        <select id="dLanguages" name = "language" required>
@@ -90,6 +109,9 @@
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
                 </select>
+
+
+
                     DIFFICULTY:
                 <select required id="dDifficulty" name = "difficulty" >
                     <option selected="selected" disabled="disabled">Select a Difficulty</option>
@@ -100,7 +122,9 @@
                 </select>
 
                     <p><br></p>
-                    <input type="text" id="searchBox"  class="input-medium" name="q" placeholder="Search..." >
+                    <input type="text" id="searchBox" list="languages" class="input-medium" name="q" placeholder="Search..." >
+                <datalist id="json-datalist"></datalist>
+
                     <input type="submit" class="btn" value="Search" >
                 </form>
 
