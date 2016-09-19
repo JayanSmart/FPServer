@@ -20,10 +20,18 @@ def index(request):
         raise Http404("Question does not exist")
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
+
+    all_tags = []
+    for question in questions_list:
+        for tag in question.tags.all():
+            if tag not in all_tags:
+                all_tags.append(tag)
+
     context = {
         'question_list': questions_list,
         'languages': languages,
-        'difficulty': difficulty
+        'difficulty': difficulty,
+        'tag_list': all_tags
     }
 
     # This is a shortcut and saves having to use the loader class
@@ -63,6 +71,13 @@ def search(request):
             for result in searchResult:
                 new_question_list.append(result)
 
+    all_tags = []
+    for question in questions_list:
+        for tag in question.tags.all:
+            if tag not in all_tags:
+                all_tags.append(tag)
+
+
 
     context = {
         'question_list': new_question_list,
@@ -71,6 +86,7 @@ def search(request):
         'difficulty': difficulty,
         'languagesel': lan,
         'difft': difft,
+        'tag_list': all_tags,
     }
 
     # This is a shortcut and saves having to use the loader class
