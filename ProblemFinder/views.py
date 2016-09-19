@@ -44,8 +44,10 @@ def search(request):
         questions_list = Question.objects.filter(visible=True).order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
+
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
+
     query = ''
 
     if ('q' in request.GET) and request.GET['q'].strip():

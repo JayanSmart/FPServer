@@ -39,7 +39,7 @@ class Solution(models.Model):
         ('4', 'C++')
     )
 
-    LANGUAGE = {"----", "Java", "Python", "C++"}
+    LANGUAGE = ("----", "Java", "Python", "C++")
 
     description = models.TextField()
     solution_text = models.TextField(blank=True)
@@ -79,7 +79,7 @@ class Question(models.Model):
         ('4', 'Hard')
     )
 
-    DIFFICULTY = {"----", "Easy", "Moderate", "Hard"}
+    DIFFICULTY = ("----", "Easy", "Moderate", "Hard")
 
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
