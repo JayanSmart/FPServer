@@ -60,6 +60,16 @@ def search(request):
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
 
+    userFlag = False;
+
+    if ('username' in request.POST) and request.POST['username'].strip():
+        username = request.POST['username']
+        if ('password' in request.POST) and request.POST['password'].strip():
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                userFlag = True
+
     query = ''
 
     if ('q' in request.GET) and request.GET['q'].strip():
@@ -76,7 +86,7 @@ def search(request):
 
 
     new_question_list = []
-    searchResult = search_alg(query, questions_list, lan, difft)
+    searchResult = search_alg(query, questions_list, lan, difft, userFlag)
 
     if searchResult == questions_list:
         new_question_list = searchResult

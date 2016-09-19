@@ -128,24 +128,24 @@ def new_tag(name, parent):
 
 
 # The Search Algorithm (in progress)
-def search_alg(query, questions_list, language, difficulty):
+def search_alg(query, questions_list, language, difficulty, user_flag):
     list_return = []         # The list which we will be returning
 
     for question in questions_list:
-        if(question.visible == False):        #Checks if question has been marked as 'invisible'
-            break
-        else:
-            # Title + Difficulty + Language Search
-            if query.lower() in question.title.lower():       # If the search query is in the database of questions
-                # Call language_difficulty_check() method
-               list_return.extend(language_difficulty_check(question,language,difficulty))
+            if not question.visible and not user_flag:        #Checks if question has been marked as 'invisible'
+                continue
+            else:
+                # Title + Difficulty + Language Search
+                if query.lower() in question.title.lower():       # If the search query is in the database of questions
+                    # Call language_difficulty_check() method
+                   list_return.extend(language_difficulty_check(question,language,difficulty))
 
-            # Tag Search, Checks language + difficulty too
-            if query != "":                                  #Only need to check tags if query is populated (optimisation)
-                for tag in question.tags.all():              # Loop through all of the questions tags and look for match
-                    if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
-                        #Call language_difficulty_check() method
-                        list_return.extend(language_difficulty_check(question, language, difficulty))
+                # Tag Search, Checks language + difficulty too
+                if query != "":                                  #Only need to check tags if query is populated (optimisation)
+                    for tag in question.tags.all():              # Loop through all of the questions tags and look for match
+                        if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                            #Call language_difficulty_check() method
+                            list_return.extend(language_difficulty_check(question, language, difficulty))
 
     #Remove duplicates
     final_list = []
