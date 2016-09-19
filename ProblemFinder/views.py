@@ -75,7 +75,7 @@ def search(request):
 
     all_tags = []
     for question in questions_list:
-        for tag in question.tags.all:
+        for tag in question.tags.all():
             if tag not in all_tags:
                 all_tags.append(tag)
 
