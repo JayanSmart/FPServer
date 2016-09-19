@@ -69,7 +69,9 @@
                 </li>
                 <li >
                     <section class="loginform cf">
-                        <form name="login" action="" method="get" accept-charset="utf-8">
+
+                        <form name="login" action="" method="post" accept-charset="utf-8">
+                            {% csrf_token %}
                           <ul>
                             <input id="username" type="username" name="username" placeholder="Username" required></li>
                             <input id="password" type="password" name="password" placeholder="Password" required></li>

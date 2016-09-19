@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
+import base64
 
 
 # Create your views here.
@@ -23,10 +24,10 @@ def index(request):
 
     userFlag = False;
 
-    if ('username' in request.GET) and request.GET['username'].strip():
-        username = request.GET['username']
-        if ('password' in request.GET) and request.GET['password'].strip():
-            password = request.GET['password']
+    if ('username' in request.POST) and request.POST['username'].strip():
+        username = request.POST['username']
+        if ('password' in request.POST) and request.POST['password'].strip():
+            password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user:
                 userFlag = True
