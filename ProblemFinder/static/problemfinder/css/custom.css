@@ -175,13 +175,16 @@ label {
 .loginform{
     background-color: #2C3E50;
 }
+
 input{
     background-color: #fff !important;
 }
 
 
 
-
+.btn{
+    color: #2b542c;
+}
 
 
 
