@@ -91,14 +91,14 @@
 
 
                 <form method="get" action="search" >
-                LANGUAGE:
-                       <select id="dLanguages" name = "language" required>
+                    LANGUAGE: &nbsp
+                    <select id="dLanguages" name = "language" required>
                            <option selected="selected" disabled="disabled">Select a Language</option>
                     {% for entry in languages %}
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
                 </select>
-                    DIFFICULTY:
+                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
                 <select required id="dDifficulty" name = "difficulty" >
                     <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
