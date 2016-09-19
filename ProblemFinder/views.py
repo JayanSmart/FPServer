@@ -9,9 +9,11 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 import base64
 
-
+global user_flag
+user_flag = False
 # Create your views here.
 def index(request):
+    global user_flag
 
     #Taking care of the 404 error
     try:
@@ -29,7 +31,9 @@ def index(request):
             password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user:
-                userFlag = True
+                user_flag = True
+
+
 
     all_tags = []
     for question in questions_list:
@@ -42,24 +46,28 @@ def index(request):
         'languages': languages,
         'difficulty': difficulty,
         'tag_list': all_tags,
-        'user': userFlag,
+        'user_flag': user_flag,
     }
+
 
     # This is a shortcut and saves having to use the loader class
     return render(request, "problemfinder/index.html", context)
 
 
 def search(request):
+    global user_flag
+
     #Taking care of the 404 error
     try:
-        questions_list = Question.objects.filter(visible=True).order_by('title')
+        questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
 
-    userFlag = False;
+
+
 
     if ('username' in request.POST) and request.POST['username'].strip():
         username = request.POST['username']
@@ -67,9 +75,10 @@ def search(request):
             password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user:
-                userFlag = True
+                user_flag = True
 
     query = ''
+
 
     if ('q' in request.GET) and request.GET['q'].strip():
         query = request.GET['q']
@@ -85,7 +94,7 @@ def search(request):
 
 
     new_question_list = []
-    searchResult = search_alg(query, questions_list, lan, difft, userFlag)
+    searchResult = search_alg(query, questions_list, lan, difft, user_flag)
 
     if searchResult == questions_list:
         new_question_list = searchResult
@@ -110,6 +119,7 @@ def search(request):
         'languagesel': lan,
         'difft': difft,
         'tag_list': all_tags,
+        'user_flag': user_flag,
     }
 
     # This is a shortcut and saves having to use the loader class
