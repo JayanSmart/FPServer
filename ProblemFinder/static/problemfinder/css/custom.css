@@ -180,18 +180,13 @@ input{
     background-color: #fff !important;
 }
 
-
-
 .btn, button{
     color: #000 !important;
     background-color: #fff;
     margin-left: 15px;
+    margin-top: 5px;
 }
 
-input.username, textarea {
-  background-color : #fff !important;
-
-}
 
 
 

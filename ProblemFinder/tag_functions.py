@@ -1,14 +1,5 @@
 from .models import Tag
 
-
-# def search(tags):
-#     questions = Question.objects.order_by("title")
-#     for question in questions:
-#         for tag in questions.__getattribute__(tags):
-#
-#     for tag in tags:
-
-
 def addTag(name, parent):
     if parent is None:
         Tag.objects.create(name, None)

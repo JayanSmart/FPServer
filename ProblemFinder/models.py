@@ -29,9 +29,9 @@ class Tag(models.Model):
 
 class Solution(models.Model):
     """
-    This is a generic Solution Class
+    The Generic Solution Class
     """
-    # Enum for possible difficulty
+    # Enums for Languages
     LANGUAGE_CHOICES = (
         ('1', '----'),
         ('2', 'Java'),
@@ -68,10 +68,10 @@ class Solution(models.Model):
 
 class Question(models.Model):
     """
-    This is a generic Question Class
+    The Generic Question Class
     """
 
-    # Enums for difficulty to show stuff
+    # Enums for difficulty
     DIFFICULTY_CHOICES = (
         ('1', '----'),
         ('2', 'Easy'),
@@ -127,24 +127,24 @@ def new_tag(name, parent):
         parent_tag.add_child(made_tag)
 
 
-# The Search Algorithm (in progress)
+# The Search Algorithm
 def search_alg(query, questions_list, language, difficulty, user_flag):
-    list_return = []         # The list which we will be returning
+
+    # The list which we will be returning
+    list_return = []
 
     for question in questions_list:
-            if not question.visible and not user_flag:        #Checks if question has been marked as 'invisible'
+            if not question.visible and not user_flag: #Checks if user can access invisible questions
                 continue
             else:
                 # Title + Difficulty + Language Search
-                if query.lower() in question.title.lower():       # If the search query is in the database of questions
-                    # Call language_difficulty_check() method
+                if query.lower() in question.title.lower():  # If the search query is in the database of questions
                    list_return.extend(language_difficulty_check(question,language,difficulty))
 
-                # Tag Search, Checks language + difficulty too
+                # Tag Search, Checks Language + Difficulty too
                 if query != "":                                  #Only need to check tags if query is populated (optimisation)
-                    for tag in question.tags.all():              # Loop through all of the questions tags and look for match
+                    for tag in question.tags.all():              #Loop through all of the questions tags and look for match
                         if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
-                            #Call language_difficulty_check() method
                             list_return.extend(language_difficulty_check(question, language, difficulty))
 
     #Remove duplicates
