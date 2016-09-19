@@ -11,6 +11,7 @@ import base64
 
 global user_flag
 user_flag = False
+
 # Create your views here.
 def index(request):
     global user_flag

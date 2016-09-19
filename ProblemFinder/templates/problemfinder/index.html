@@ -68,7 +68,11 @@
                     <a href="#page-top"></a>
                 </li>
                 <li >
-                    <section class="loginform cf">
+                    {% if user_flag %}
+
+                        <h5><span style="color:#fff">Logged in</span></h5>
+                        {% else %}
+                        <section class="loginform cf">
 
                         <form name="login" action="" method="post" accept-charset="utf-8">
                             {% csrf_token %}
@@ -79,6 +83,8 @@
                           </ul>
                         </form>
                     </section>
+                    {% endif %}
+
                 </li>
 
             </ul>
