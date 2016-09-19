@@ -5,9 +5,10 @@ from django.shortcuts import render, get_object_or_404
 from .models import Question, Solution
 from .models import search_alg
 from django.shortcuts import render, redirect
-
-from django.http import *
-from .forms import LoginForm
+from django.contrib.auth import authenticate, login
+from django.views.generic import View
+from .forms import UserForm
+import base64
 
 
 # Create your views here.
@@ -18,8 +19,18 @@ def index(request):
         questions_list = Question.objects.order_by('title')
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
-    languages = Solution.LANGUAGE_CHOICES
-    difficulty = Question.DIFFICULTY_CHOICES
+    languages = Solution.LANGUAGE
+    difficulty = Question.DIFFICULTY
+
+    userFlag = False;
+
+    if ('username' in request.POST) and request.POST['username'].strip():
+        username = request.POST['username']
+        if ('password' in request.POST) and request.POST['password'].strip():
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                userFlag = True
 
     all_tags = []
     for question in questions_list:
@@ -31,7 +42,8 @@ def index(request):
         'question_list': questions_list,
         'languages': languages,
         'difficulty': difficulty,
-        'tag_list': all_tags
+        'tag_list': all_tags,
+        'user': userFlag,
     }
 
     # This is a shortcut and saves having to use the loader class
@@ -45,8 +57,18 @@ def search(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
-    languages = Solution.LANGUAGE_CHOICES
-    difficulty = Question.DIFFICULTY_CHOICES
+    languages = Solution.LANGUAGE
+    difficulty = Question.DIFFICULTY
+
+    userFlag = False;
+
+    if ('username' in request.POST) and request.POST['username'].strip():
+        username = request.POST['username']
+        if ('password' in request.POST) and request.POST['password'].strip():
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                userFlag = True
 
     query = ''
 
@@ -64,7 +86,7 @@ def search(request):
 
 
     new_question_list = []
-    searchResult = search_alg(query, questions_list, lan, difft)
+    searchResult = search_alg(query, questions_list, lan, difft, userFlag)
 
     if searchResult == questions_list:
         new_question_list = searchResult
@@ -95,20 +117,39 @@ def search(request):
     return render(request, "problemfinder/search.html", context)
 
 
-def login(request):
-    username = "not logged in"
 
-    if request.method == "POST":
-        # Get the posted form
-        MyLoginForm = LoginForm(request.POST)
+class UserFormView(View):
+    form_class = UserForm
+    template_name = 'problemfinder/login.html'
 
-        if MyLoginForm.is_valid():
-            username = MyLoginForm.cleaned_data['username']
-    else:
-        MyLoginForm = LoginForm()
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
 
-    return render(request, 'loggedin.html', {"username": username})
+    def post(self, request):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
 
+            user = form.save(commit=False)
+
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            print(username+' : '+password   )
+            user.set.password(password)
+            user.save()
+
+            user = authenticate(username=username, password=password)
+            print(user)
+            if user is not None:
+                print(user)
+                if user.is_active:
+                    login(request, user)
+                    return redirect('ProblemFinder:index')
+        else:
+            print("form invalid")
+            print(form.errors)
+
+        return render(request, "problemfinder/login.html")
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

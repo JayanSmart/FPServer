@@ -63,8 +63,18 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <li class="page-scroll">
-                    <a href="/admin/">Login</a>
+                <li >
+                    <section class="loginform cf">
+
+                        <form name="login" action="" method="post" accept-charset="utf-8">
+                            {% csrf_token %}
+                          <ul>
+                            <input id="username" type="username" name="username" placeholder="Username" required></li>
+                            <input id="password" type="password" name="password" placeholder="Password" required></li>
+                            <input type="submit" value="Login"></li>
+                          </ul>
+                        </form>
+                    </section>
                 </li>
 
             </ul>
@@ -125,9 +135,7 @@
                     <input type="submit" class="btn" value="Search" >
                 </form>
 
-
                 <p><br></p>
-
 
                 <button type="button" class="btn btn-primary" href="search.html">
                     <a href="search">Show All Questions</a>

@@ -1,18 +1,13 @@
-# Finding Problems
-# Course: CSC3003S
-# Date: 23 September 2016
-
-# Imports
 from __future__ import unicode_literals
+
 from django.db import models
 from django.utils import timezone
 
 
-# Tag
+# Create your models here.
 class Tag(models.Model):
     """
     The generic tag class
-    tags are binded to all question and solution objects
     """
     name = models.TextField()
     parent = models.ForeignKey('self', null=True, blank=True)
@@ -31,13 +26,20 @@ class Tag(models.Model):
     def get_children(self):
         return self.children
 
-# Solution
+
 class Solution(models.Model):
     """
     This is a generic Solution Class
     """
+    # Enum for possible difficulty
+    LANGUAGE_CHOICES = (
+        ('1', '----'),
+        ('2', 'Java'),
+        ('3', 'Python'),
+        ('4', 'C++')
+    )
 
-    LANGUAGE_CHOICES = ("----", "Java", "Python", "C++")
+    LANGUAGE = ("----", "Java", "Python", "C++")
 
     description = models.TextField()
     solution_text = models.TextField(blank=True)
@@ -63,15 +65,21 @@ class Solution(models.Model):
     def get_tags(self):
         return self.tags.all()
 
-# Question
+
 class Question(models.Model):
     """
     This is a generic Question Class
     """
 
     # Enums for difficulty to show stuff
+    DIFFICULTY_CHOICES = (
+        ('1', '----'),
+        ('2', 'Easy'),
+        ('3', 'Moderate'),
+        ('4', 'Hard')
+    )
 
-    DIFFICULTY_CHOICES = ("----", "Easy", "Moderate", "Hard")
+    DIFFICULTY = ("----", "Easy", "Moderate", "Hard")
 
     title = models.CharField(max_length=250)
     question_text = models.TextField(blank=True)
@@ -119,29 +127,27 @@ def new_tag(name, parent):
         parent_tag.add_child(made_tag)
 
 
-# Search Algorithm (in progress)
-#
-
-def search_alg(query, questions_list, language, difficulty):
+# The Search Algorithm (in progress)
+def search_alg(query, questions_list, language, difficulty, user_flag):
     list_return = []         # The list which we will be returning
 
     for question in questions_list:
-        if(question.visible == False):        # Checks if question has been marked as 'invisible'
-            break
-        else:
-            # Title + Difficulty + Language Search
-            if query.lower() in question.title.lower():       # If the search query is in the database of questions
-                # Call language_difficulty_check() method
-               list_return.extend(language_difficulty_check(question,language,difficulty))
+            if not question.visible and not user_flag:        #Checks if question has been marked as 'invisible'
+                continue
+            else:
+                # Title + Difficulty + Language Search
+                if query.lower() in question.title.lower():       # If the search query is in the database of questions
+                    # Call language_difficulty_check() method
+                   list_return.extend(language_difficulty_check(question,language,difficulty))
 
-            # Tag Search, Checks language + difficulty too
-            if query != "":                                  # Only need to check tags if query is populated (optimisation)
-                for tag in question.tags.all():              # Loop through all of the questions tags and look for match
-                    if query in str(tag).split('.')[-1]:     # If tag match query, then check if language and difficulty match question
-                        # Call language_difficulty_check() method
-                        list_return.extend(language_difficulty_check(question, language, difficulty))
+                # Tag Search, Checks language + difficulty too
+                if query != "":                                  #Only need to check tags if query is populated (optimisation)
+                    for tag in question.tags.all():              # Loop through all of the questions tags and look for match
+                        if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                            #Call language_difficulty_check() method
+                            list_return.extend(language_difficulty_check(question, language, difficulty))
 
-    # Remove duplicates
+    #Remove duplicates
     final_list = []
     for i in list_return:
         if i not in final_list:
@@ -150,21 +156,21 @@ def search_alg(query, questions_list, language, difficulty):
     return final_list
 
 def language_difficulty_check(question, language, difficulty):
-    diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    # Helps difficulty search
-    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}       # Helps language search
+    diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    #Helps difficulty search
+    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}       #Helps language search
     list_return = []
 
     if (language == "Not Selected"):
-        if (difficulty == "Not Selected"):  # If language and difficulty not selected
+        if (difficulty == "Not Selected"):  #If language and difficulty not selected
             list_return.append(question)
         else:
-            if (diffHash.get(question.difficulty) == difficulty):  # If language not selected but difficulty selected
+            if (diffHash.get(question.difficulty) == difficulty):  #If language not selected but difficulty selected
                 list_return.append(question)
     elif (difficulty == "Not Selected"):
-        for solution in question.solutions.all():                  # If difficulty not selected but language selected
+        for solution in question.solutions.all():                  #If difficulty not selected but language selected
             if (langHash.get(solution.language) == language):
                 list_return.append(question)
-    elif (diffHash.get(question.difficulty) == difficulty):        # If difficulty and language selected
+    elif (diffHash.get(question.difficulty) == difficulty):        #If difficulty and language selected
         for solution in question.solutions.all():
             if (langHash.get(solution.language) == language):
                 list_return.append(question)
