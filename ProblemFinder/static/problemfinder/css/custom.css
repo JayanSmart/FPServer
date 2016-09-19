@@ -182,9 +182,17 @@ input{
 
 
 
-.btn{
-    color: #2b542c;
+.btn, button{
+    color: #000 !important;
+    background-color: #fff;
+    margin-left: 15px;
 }
+
+input.username, textarea {
+  background-color : #fff !important;
+
+}
+
 
 
 

@@ -66,7 +66,18 @@
                 <li >
                     {% if user_flag %}
 
-                        <h5><span style="color:#fff">Logged in</span></h5>
+                         <h5><span style="color:#fff">Hello, </span><span style="color:#18BC9C">{{ user_value }}&nbsp&nbsp</span></h5>
+                        <li>
+                            <form name="logout" action="admin" >
+                                <input type="submit"  class="btn" name="logout" value="Admin">
+                            </form>
+                        </li>
+                        <li>
+                            <form name="logout" action="" method="get">
+                                <input type="submit" class="btn" name="logout" value="Logout">
+                            </form>
+                        </li>
+
                         {% else %}
                         <section class="loginform cf">
 
@@ -75,13 +86,15 @@
                           <ul>
                             <input id="username" type="username" name="username" placeholder="Username" required></li>
                             <input id="password" type="password" name="password" placeholder="Password" required></li>
-                            <input type="submit" value="Login"></li>
+                            <input type="submit" class="btn" value="Login"></li>
                           </ul>
                         </form>
                     </section>
                     {% endif %}
 
                 </li>
+
+
 
             </ul>
         </div>

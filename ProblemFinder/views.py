@@ -11,10 +11,14 @@ import base64
 
 global user_flag
 user_flag = False
+global user_value
+user_value = ""
+
 
 # Create your views here.
 def index(request):
     global user_flag
+    global user_value
 
     #Taking care of the 404 error
     try:
@@ -26,21 +30,28 @@ def index(request):
 
     userFlag = False;
 
+    #Check if logout button was clicked
+    if ('logout' in request.GET) and request.GET['logout'].strip():
+        user_flag = False
+
+    # User login form
     if ('username' in request.POST) and request.POST['username'].strip():
         username = request.POST['username']
         if ('password' in request.POST) and request.POST['password'].strip():
             password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user:
+                user_value = user
                 user_flag = True
 
-
-
+    #Create a list with all tags to help html queries
     all_tags = []
     for question in questions_list:
         for tag in question.tags.all():
             if tag not in all_tags:
                 all_tags.append(tag)
+
+    local_user = user_value
 
     context = {
         'question_list': questions_list,
@@ -48,6 +59,7 @@ def index(request):
         'difficulty': difficulty,
         'tag_list': all_tags,
         'user_flag': user_flag,
+        'user_value': local_user,
     }
 
 
@@ -57,6 +69,7 @@ def index(request):
 
 def search(request):
     global user_flag
+    global user_value
 
     #Taking care of the 404 error
     try:
@@ -67,15 +80,18 @@ def search(request):
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
 
+    # Check if logout button was clicked
+    if ('logout' in request.GET) and request.GET['logout'].strip():
+        user_flag = False
 
-
-
+    #User login form
     if ('username' in request.POST) and request.POST['username'].strip():
         username = request.POST['username']
         if ('password' in request.POST) and request.POST['password'].strip():
             password = request.POST['password']
             user = authenticate(username=username, password=password)
             if user:
+                user_value = user
                 user_flag = True
 
     query = ''
@@ -95,6 +111,7 @@ def search(request):
 
 
     new_question_list = []
+    #Calling the search algorithm
     searchResult = search_alg(query, questions_list, lan, difft, user_flag)
 
     if searchResult == questions_list:
@@ -104,13 +121,14 @@ def search(request):
             for result in searchResult:
                 new_question_list.append(result)
 
+    # Create a list with all tags to help html queries
     all_tags = []
     for question in questions_list:
         for tag in question.tags.all():
             if tag not in all_tags:
                 all_tags.append(tag)
 
-
+    local_user = user_value
 
     context = {
         'question_list': new_question_list,
@@ -121,6 +139,7 @@ def search(request):
         'difft': difft,
         'tag_list': all_tags,
         'user_flag': user_flag,
+        'user_value': local_user,
     }
 
     # This is a shortcut and saves having to use the loader class
