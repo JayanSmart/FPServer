@@ -155,3 +155,55 @@ def search(request):
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'problemfinder/details.html', {'question': question})
+
+
+# The Search Algorithm
+def search_alg(query, questions_list, language, difficulty, user_flag):
+
+    # The list which we will be returning
+    list_return = []
+
+    for question in questions_list:
+            if not question.visible and not user_flag: #Checks if user can access invisible questions
+                continue
+            else:
+                # Title + Difficulty + Language Search
+                if query.lower() in question.title.lower():  # If the search query is in the database of questions
+                   list_return.extend(language_difficulty_check(question,language,difficulty))
+
+                # Tag Search, Checks Language + Difficulty too
+                if query != "":                                  #Only need to check tags if query is populated (optimisation)
+                    for tag in question.tags.all():              #Loop through all of the questions tags and look for match
+                        if query in str(tag).split('.')[-1]:     #If tag match query, then check if language and difficulty match question
+                            list_return.extend(language_difficulty_check(question, language, difficulty))
+
+    #Remove duplicates
+    final_list = []
+    for i in list_return:
+        if i not in final_list:
+            final_list.append(i)
+
+    return final_list
+
+
+def language_difficulty_check(question, language, difficulty):
+    diffHash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}    #Helps difficulty search
+    langHash = {'2': 'Java', '3': 'Python', '4': 'C++'}       #Helps language search
+    list_return = []
+
+    if (language == "Not Selected"):
+        if (difficulty == "Not Selected"):  #If language and difficulty not selected
+            list_return.append(question)
+        else:
+            if (diffHash.get(question.difficulty) == difficulty):  #If language not selected but difficulty selected
+                list_return.append(question)
+    elif (difficulty == "Not Selected"):
+        for solution in question.solutions.all():                  #If difficulty not selected but language selected
+            if (langHash.get(solution.language) == language):
+                list_return.append(question)
+    elif (diffHash.get(question.difficulty) == difficulty):        #If difficulty and language selected
+        for solution in question.solutions.all():
+            if (langHash.get(solution.language) == language):
+                list_return.append(question)
+
+    return list_return
