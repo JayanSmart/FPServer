@@ -41,10 +41,9 @@ class Solution(models.Model):
 
     LANGUAGE = ("----", "Java", "Python", "C++")
 
-    description = models.TextField()
-    solution_text = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     solution_URL = models.URLField(blank=True)
-    solution_PDF = models.FileField(blank=True  )
+    solution_PDF = models.FileField(blank=True)
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
     tags = models.ManyToManyField(Tag)
 
