@@ -11,6 +11,7 @@ global user_value  # The username of the logged in user
 user_value = ""
 
 
+
 # Create your views here.
 def index(request):
     global user_flag
@@ -153,6 +154,7 @@ def detail(request, question_id):
 def search_alg(query, questions_list, language, difficulty, user_flag):
     """
     This is the main search algorithm used
+    :rtype: list
     :param query: This is an array of tags and titels that the user searched for
     :param questions_list: This is a list of all the question on the DB
     :param language: The language of the desired solution
@@ -170,13 +172,15 @@ def search_alg(query, questions_list, language, difficulty, user_flag):
         else:
             # Title + Difficulty + Language Search
             if query.lower() in question.title.lower():  # If the search query is in the database of questions
-                list_return.extend(language_difficulty_check(question, language, difficulty))
+                if language_difficulty_check(question, language, difficulty):
+                    list_return.append(question)
 
             # Tag Search, Checks Language + Difficulty too
             if query != "":  # Only need to check tags if query is populated (optimisation)
                 for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-                    if query in str(tag).split('.')[-1]:  # If tag matches query, then check if language and difficulty match question
-                        list_return.extend(language_difficulty_check(question, language, difficulty))
+                    if query in str(tag).split('.')[-1]:  # If tag matches query, check language & difficulty
+                        if language_difficulty_check(question, language, difficulty):
+                            list_return.append(question)
 
     # Remove duplicates
     final_list = []
@@ -190,21 +194,38 @@ def search_alg(query, questions_list, language, difficulty, user_flag):
 def language_difficulty_check(question, language, difficulty):
     diff_hash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}  # Helps difficulty search
     lang_hash = {'2': 'Java', '3': 'Python', '4': 'C++'}  # Helps language search
-    list_return = []
 
     if language == "Not Selected":
         if difficulty == "Not Selected":  # If language and difficulty not selected
-            list_return.append(question)
+            return True
         else:
             if diff_hash.get(question.difficulty) == difficulty:  # If language not selected but difficulty selected
-                list_return.append(question)
+                return True
     elif difficulty == "Not Selected":
         for solution in question.solutions.all():  # If difficulty not selected but language selected
             if lang_hash.get(solution.language) == language:
-                list_return.append(question)
+                return True
     elif diff_hash.get(question.difficulty) == difficulty:  # If difficulty and language selected
         for solution in question.solutions.all():
             if lang_hash.get(solution.language) == language:
-                list_return.append(question)
+                return True
 
-    return list_return
+    return False
+
+
+def get_children(search_tag, tag_list):
+    """
+    returns a list of all the child tags of a given tag, this method is recursive and will search for more than one
+    level of children (e.g. grand-children)
+    :rtype: list
+    :param search_tag: This is the parent tag for which we want the children
+    :param tag_list: This is the list of all tags in the DB at the time of query
+    :return: A list of all the unique child tags of some particular tag (search_tag)
+    """
+    list_return = []
+
+    for tag in tag_list:
+        if str(tag.parent) == str(search_tag):
+            list_return.append(tag)
+            list_return.extend(get_children(tag, tag_list))
+    return list(set(list_return))  # This will return a list of unique elements
