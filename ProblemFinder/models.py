@@ -11,20 +11,9 @@ class Tag(models.Model):
     """
     name = models.TextField()
     parent = models.ForeignKey('self', null=True, blank=True)
-    children = []
 
     def __str__(self):
-        output = ''
-        return (self.name).strip(':')
-
-    def add_tag(self, name, parent):
-        new_tag(name, parent)
-
-    def add_child(self, child):
-        self.children.append(child)
-
-    def get_children(self):
-        return self.children
+        return self.name
 
 
 class Solution(models.Model):
@@ -39,6 +28,7 @@ class Solution(models.Model):
         ('4', 'C++')
     )
 
+    # This is in the code twice because Django is pedantic and we need to force order...
     LANGUAGE = ("----", "Java", "Python", "C++")
 
     description = models.TextField(blank=True)
