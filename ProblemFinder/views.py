@@ -3,7 +3,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
-from .models import Question, Solution
+from .models import Question, Solution, Tag
 
 global user_flag  # Determine if this is a staff member or not
 user_flag = False
@@ -74,6 +74,12 @@ def search(request):
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
 
+    # populate a var with all available tags
+    try:
+        tag_list = Tag.objects.all()
+    except Tag.DoesNotExist:
+        raise Http404("Tag does not exist")
+
     # Lists of all possible languages and difficulties
     languages = Solution.LANGUAGE
     difficulty = Question.DIFFICULTY
@@ -100,23 +106,23 @@ def search(request):
         query = request.GET['q']
 
     # Getting language and difficulty dropdown box selection
-    lan = request.GET.get('language', '----')
+    lang = request.GET.get('language', '----')
     difft = request.GET.get('difficulty', '----')
 
     if difft == "Difficulty" or difft == "----":
         difft = "Not Selected"
-    if lan == "Language" or lan == "----":
-        lan = "Not Selected"
+    if lang == "Language" or lang == "----":
+        lang = "Not Selected"
 
     new_question_list = []
     # Calling the search algorithm
-    searchResult = search_alg(query, questions_list, lan, difft, user_flag)
+    search_result = search_alg(query, questions_list, tag_list, lang, difft)
 
-    if searchResult == questions_list:
-        new_question_list = searchResult
+    if search_result == questions_list:
+        new_question_list = search_result
     else:
-        if isinstance(searchResult, list):
-            for result in searchResult:
+        if isinstance(search_result, list):  # This is for if there are no search matches.
+            for result in search_result:
                 new_question_list.append(result)
 
     # Create a list with all tags to help html queries
@@ -134,7 +140,7 @@ def search(request):
         'query': query,
         'languages': languages,
         'difficulty': difficulty,
-        'languagesel': lan,
+        'languagesel': lang,
         'difft': difft,
         'tag_list': all_tags,
         'user_flag': user_flag,
@@ -150,48 +156,69 @@ def detail(request, question_id):
     return render(request, 'problemfinder/details.html', {'question': question})
 
 
+def get_tag(tag_name, tag_list):
+    """
+    Returns the tag object when given the tag name
+    :rtype: Tag
+    :param tag_name: the name of the tag you want to get
+    :param tag_list: list of all tags in DB at time of query
+    :return: Tag object with matching name
+    """
+    for i in range(len(tag_list)):
+        if tag_name == str(tag_list[i]):
+            return tag_list[i]
+
+
 # The Search Algorithm
-def search_alg(query, questions_list, language, difficulty, user_flag):
+def search_alg(query, questions_list, tag_list, language, difficulty):
     """
     This is the main search algorithm used
+
     :rtype: list
-    :param query: This is an array of tags and titels that the user searched for
+    :param query: This is an array of tags and titles that the user searched for
     :param questions_list: This is a list of all the question on the DB
+    :param tag_list: This is a list of all the tags in the db at the time of search
     :param language: The language of the desired solution
     :param difficulty: The difficulty of the problem as prescribed by the user
-    :param user_flag: This is a boolean flag that tells the algorithm if the user is logged in and can see hidden problems
     :return: This will return a list of all the problems that match the search parameters
     """
+    global user_flag
+    list_return = []  # The list which we will be returning
+    query_tags = []
+    query_titels = []
 
-    # The list which we will be returning
-    list_return = []
+    for item in query:
+        if item in [str(tag_list)]:
+            query_tags.append(get_tag(item, tag_list))
+            query_tags.extend(get_children(item, tag_list))
+        else:
+            query_titels.append(item)
 
     for question in questions_list:
-        if not question.visible and not user_flag:  # Checks if user can access invisible questions
-            continue
-        else:
-            # Title + Difficulty + Language Search
-            if query.lower() in question.title.lower():  # If the search query is in the database of questions
-                if language_difficulty_check(question, language, difficulty):
-                    list_return.append(question)
+        assert isinstance(question, Question)
+        # Tag search
+        if set(question.tags.all()).issubset(query_tags):
+            if language_difficulty_check(question, language, difficulty):
+                list_return.append(question)
+                continue
+        # Title search
+        for title in query_titels:
+            assert isinstance(title, str)
+            if title.lower() == question.title.lower() and language_difficulty_check(question, language, difficulty):
+                list_return.append(question)
 
-            # Tag Search, Checks Language + Difficulty too
-            if query != "":  # Only need to check tags if query is populated (optimisation)
-                for tag in question.tags.all():  # Loop through all of the questions tags and look for match
-                    if query in str(tag).split('.')[-1]:  # If tag matches query, check language & difficulty
-                        if language_difficulty_check(question, language, difficulty):
-                            list_return.append(question)
-
-    # Remove duplicates
-    final_list = []
-    for i in list_return:
-        if i not in final_list:
-            final_list.append(i)
-
-    return final_list
+    return list(set(list_return))  # This removes duplicates
 
 
 def language_difficulty_check(question, language, difficulty):
+    """
+
+    :rtype: bool
+    :param question: the question that is tested
+    :param language: the language to look for
+    :param difficulty: the difficulty to look for
+    :return: True if the question matches the desired parameters, else False
+    """
     diff_hash = {'2': 'Easy', '3': 'Moderate', '4': 'Hard'}  # Helps difficulty search
     lang_hash = {'2': 'Java', '3': 'Python', '4': 'C++'}  # Helps language search
 

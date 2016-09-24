@@ -83,18 +83,6 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
-    def add_tag(self, tag):
-        self.tags.add(tag)
-
-    def remove_tag(self, tag):
-        self.tags.remove(tag)
-
-    # Create a dynamic upload url.
-    # Thinking of trying to host online?
-    # Google Drive/Dropbox account that we access from the code. I'm sure there is an API for it.
-    def get_upload_to(self):
-        return True #TODO: Finish this method
-
 
 # Misc Functions
 
