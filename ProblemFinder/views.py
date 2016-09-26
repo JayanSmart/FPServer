@@ -11,9 +11,13 @@ global user_value  # The username of the logged in user
 user_value = ""
 
 
-
 # Create your views here.
 def index(request):
+    """
+    This is the logic for the home page
+    :param request: HTTP request
+    :return: render --> HTTP response
+    """
     global user_flag
     global user_value
 
@@ -65,6 +69,11 @@ def index(request):
 
 
 def search(request):
+    """
+    This is the logic for the search page
+    :param request: This is an HTTP request
+    :return: render --> HTTP Response
+    """
     global user_flag
     global user_value
 
@@ -152,6 +161,12 @@ def search(request):
 
 
 def detail(request, question_id):
+    """
+    This is the logic for the page the shows a specific questions solutions
+    :param request: HTTP request
+    :param question_id: The id of the question about which details are requested
+    :return: render --> HTTP response
+    """
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'problemfinder/details.html', {'question': question})
 

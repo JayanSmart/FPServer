@@ -106,30 +106,34 @@
                 <p><br><br></p>
 
                 <form method="get" action="search" >
-                LANGUAGE: &nbsp
-                       <select id="dLanguages" name = "language" required>
-                            <option selected="selected" disabled="disabled">Select a Language</option>
+                    LANGUAGE: &nbsp
+                           <select id="dLanguages" name = "language" required>
+                                <option selected="selected" disabled="disabled">Select a Language</option>
 
-                    {% for entry in languages %}
-                        <option value="{{ entry }}">{{ entry }}</option>
-                    {% endfor %}
-                </select>
+                        {% for entry in languages %}
+                            <option value="{{ entry }}">{{ entry }}</option>
+                        {% endfor %}
+                    </select>
 
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
-                <select required id="dDifficulty" name = "difficulty" >
-                    <option selected="selected" disabled="disabled">Select a Difficulty</option>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
+                    <select required id="dDifficulty" name = "difficulty" >
+                        <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
-                    {% for entry in difficulty %}
-                        <option value="{{ entry }}">{{ entry }}</option>
-                    {% endfor %}
-                </select>
+                        {% for entry in difficulty %}
+                            <option value="{{ entry }}">{{ entry }}</option>
+                        {% endfor %}
+                    </select>
 
-                    <p><br></p>
-                    <input type="text" id="searchBox" list="json-datalist" class="input-medium" name="q" placeholder="Search..." >
-                <datalist id="json-datalist"></datalist>
+                        <p><br></p>
+                        <input type="text" id="searchBox" list="json-datalist" class="input-medium" name="q" placeholder="Search..." >
+                    <datalist id="json-datalist"></datalist>
 
-                    <input type="submit" class="btn" value="Search" >
+                        <input type="submit" class="btn" value="Search" >
                 </form>
+
+                <div>
+{#                    This will be the are that shows the added search algorithms #}
+                </div>
 
                 <p><br></p>
 

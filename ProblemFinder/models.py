@@ -45,15 +45,6 @@ class Solution(models.Model):
                 break
         return output
 
-    def add_tag(self, tag):
-        self.tags.append(tag)
-
-    def remove_tag(self, tag):
-        self.tags.remove(tag)
-
-    def get_tags(self):
-        return self.tags.all()
-
 
 class Question(models.Model):
     """
@@ -82,25 +73,3 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# Misc Functions
-
-# This is for the Tag model
-def new_tag(name, parent):
-    if parent is None:
-        Tag.objects.create(name, None)
-        return
-    parent_tag = None
-    for tag in Tag.objects.all():
-        if tag.name == parent:
-            parent_tag = Tag.objects.get(parent)
-            break
-    if parent_tag is None:
-        new_tag(parent, None)
-        new_tag(name, parent)
-    else:
-        made_tag = Tag.objects.create(name, parent_tag)
-        parent_tag.add_child(made_tag)
-
-
