@@ -205,14 +205,17 @@ def search_alg(query, questions_list, tag_list, language, difficulty):
     list_return = []  # The list which we will be returning
     query_tags = []
     query_titels = []
+    tag_found = False  # This is for a case where no tag queries are found
 
-    for item in query:
-        if item in [str(tag_list)]:
-            query_tags.append(get_tag(item, tag_list))
-            query_tags.extend(get_children(item, tag_list))
-        else:
-            query_titels.append(item)
-
+    if not query:
+        query_tags = tag_list.all()
+    else:
+        for item in query:
+            if item in map(str, tag_list):
+                query_tags.append(get_tag(item, tag_list))
+                query_tags.extend(get_children(item, tag_list))
+            else:
+                query_titels.append(item)
     for question in questions_list:
         assert isinstance(question, Question)
         # Tag search
