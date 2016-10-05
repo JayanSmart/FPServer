@@ -108,11 +108,14 @@ def search(request):
                 user_flag = True
 
     # Initialising search query
-    query = ''
+    querystr = ""
 
     # Getting search query from search bar
     if ('query' in request.GET) and request.GET['query'].strip():
-        query = request.GET['query']
+        querystr = request.GET['query']
+    query = querystr.split(",")
+    query = query[:-1]
+
 
     # Getting language and difficulty dropdown box selection
     lang = request.GET.get('language', '----')

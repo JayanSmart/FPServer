@@ -117,16 +117,16 @@
             </div>
 
                 <form method="get" action="search" >
-
                     LANGUAGE: &nbsp
-                    <select id="dLanguages" name = "language" required>
-                           <option selected="selected" disabled="disabled">Select a Language</option>
-                    {% for entry in languages %}
-                        <option value="{{ entry }}">{{ entry }}</option>
-                    {% endfor %}
+                           <select id="dLanguages" name = "language" required>
+                                <option selected="selected" disabled="disabled">Select a Language</option>
+
+                        {% for entry in languages %}
+                            <option value="{{ entry }}">{{ entry }}</option>
+                        {% endfor %}
                     </select>
 
-                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
                     <select required id="dDifficulty" name = "difficulty" >
                         <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
@@ -135,19 +135,52 @@
                         {% endfor %}
                     </select>
 
-                    <!-- Search Bar-->
-                    <p><br></p>
-                    <input type="text" id="searchBox" list="json-datalist" class="input-medium" name="q" placeholder="Search..." >
+                        <p><br></p>
+                        <input type="text" id="searchBox" list="json-datalist" class="input-medium"
+                               placeholder="Search..." >
                     <datalist id="json-datalist"></datalist>
-                    <input type="submit" class="btn" value="Add" onclick="add_to_query(this.value, {{ query }})" >
 
-                    {% for i in query %}
-                        {% if i in tag_list %}
-                            <div class="tagDisplay">{{ i }}</div>
-                        {% else %}
-                            <div class="langDisplay">{{ i }}</div>
-                        {% endif %}
-                    {% endfor %}
+                    <input type="button" class="btn" value="Add" onclick="add_element_to_array(); display_array();"> </input>
+                <input type="submit" class="btn" value="Search" >
+
+                    <div id="Result" style="font-size: 18px"></div>
+
+                   <input type="hidden" id="hide" class="input-medium" name="query"
+                               placeholder="Search..." >
+
+
+                        <script>
+                            var x = 0;
+                            var array = Array();
+
+                            function add_element_to_array()
+                            {
+                             array[x] = document.getElementById("searchBox").value;
+                             x++;
+                             document.getElementById("searchBox").value = "";
+
+                            }
+
+                            function display_array()
+                            {
+
+                                var e = "SEARCH RESULTS<hr/>";
+                                var hide = ''
+
+
+                               for (var y=0; y<array.length; y++)
+                               {
+                                   hide += array[y] + ",";
+                                 e += array[y] + "<br/>";
+                               }
+
+                               document.getElementById("Result").innerHTML = e;
+                                document.getElementById("hide").value = hide;
+                            }
+                        </script>
+
+
+
                 </form>
 
                 <p><br></p>

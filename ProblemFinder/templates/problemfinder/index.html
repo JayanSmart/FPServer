@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 
     <meta charset="utf-8">
@@ -129,14 +129,47 @@
                     </select>
 
                         <p><br></p>
-                        <input type="text" id="searchBox" list="json-datalist" class="input-medium" name="query"
+                        <input type="text" id="searchBox" list="json-datalist" class="input-medium"
                                placeholder="Search..." >
                     <datalist id="json-datalist"></datalist>
 
-                    <input type="submit" class="btn" value="Add" >
+                    <input type="button" class="btn" value="Add" onclick="add_element_to_array(); display_array();"> </input>
+                <input type="submit" class="btn" value="Search" >
+
+                    <div id="Result" style="font-size: 18px"></div>
+
+                   <input type="hidden" id="hide" class="input-medium" name="query"
+                               placeholder="Search..." >
+
+                        <script>
+                            var x = 0;
+                            var array = Array();
+
+                            function add_element_to_array()
+                            {
+                             array[x] = document.getElementById("searchBox").value;
+                             x++;
+                             document.getElementById("searchBox").value = "";
+
+                            }
+
+                            function display_array()
+                            {
+
+                                var e = "SEARCH RESULTS<hr/>";
+                                var hide = ''
 
 
+                               for (var y=0; y<array.length; y++)
+                               {
+                                   hide += array[y] + ",";
+                                 e += array[y] + "<br/>";
+                               }
 
+                               document.getElementById("Result").innerHTML = e;
+                                document.getElementById("hide").value = hide;
+                            }
+                        </script>
 
 
                 </form>
