@@ -205,7 +205,6 @@ def search_alg(query, questions_list, tag_list, language, difficulty):
     list_return = []  # The list which we will be returning
     query_tags = []
     query_titels = []
-    tag_found = False  # This is for a case where no tag queries are found
 
     if not query:
         query_tags = tag_list.all()
