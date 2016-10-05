@@ -111,8 +111,8 @@ def search(request):
     query = ''
 
     # Getting search query from search bar
-    if ('q' in request.GET) and request.GET['q'].strip():
-        query = request.GET['q']
+    if ('query' in request.GET) and request.GET['query'].strip():
+        query = request.GET['query']
 
     # Getting language and difficulty dropdown box selection
     lang = request.GET.get('language', '----')
@@ -154,6 +154,7 @@ def search(request):
         'tag_list': all_tags,
         'user_flag': user_flag,
         'user_value': local_user,
+        'query_list': []
     }
 
     # This is a shortcut and saves having to use the loader class

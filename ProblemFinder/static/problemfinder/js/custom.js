@@ -19,3 +19,7 @@ $(".dropdown-menu li a").click(function(){
      }
 }
 
+/* Function to add to the query array */
+$(".add_to_query li a").click(function () {
+
+});

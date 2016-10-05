@@ -21,13 +21,21 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
           type="text/css">
 
-{#    Anchor Scrolling#}
-  <script type="text/javascript">
-      function moveWin()
-      {
-        window.scroll(0,654);
-      }
-      </script>
+{#    Anchor Scrolling #}
+   <script type="text/javascript">
+       function moveWin()
+       {
+           window.scroll(0,654);
+       }
+   </script>
+
+{#    Add to query #}
+   <script type="text/javascript">
+       function add_to_query(key, query) {
+           query.append(key)
+       }
+   </script>
+
 </head>
 
 <body id="page-top" class="index" onLoad="moveWin();">
@@ -116,22 +124,30 @@
                     {% for entry in languages %}
                         <option value="{{ entry }}">{{ entry }}</option>
                     {% endfor %}
-                </select>
+                    </select>
 
-                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
-                <select required id="dDifficulty" name = "difficulty" >
-                    <option selected="selected" disabled="disabled">Select a Difficulty</option>
+                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp DIFFICULTY: &nbsp
+                    <select required id="dDifficulty" name = "difficulty" >
+                        <option selected="selected" disabled="disabled">Select a Difficulty</option>
 
-                    {% for entry in difficulty %}
-                        <option value="{{ entry }}">{{ entry }}</option>
-                    {% endfor %}
-                </select>
+                        {% for entry in difficulty %}
+                            <option value="{{ entry }}">{{ entry }}</option>
+                        {% endfor %}
+                    </select>
 
-                <!-- Search Bar-->
+                    <!-- Search Bar-->
                     <p><br></p>
                     <input type="text" id="searchBox" list="json-datalist" class="input-medium" name="q" placeholder="Search..." >
                     <datalist id="json-datalist"></datalist>
-                    <input type="submit" class="btn" value="Search" >
+                    <input type="submit" class="btn" value="Add" onclick="add_to_query(this.value, {{ query }})" >
+
+                    {% for i in query %}
+                        {% if i in tag_list %}
+                            <div class="tagDisplay">{{ i }}</div>
+                        {% else %}
+                            <div class="langDisplay">{{ i }}</div>
+                        {% endif %}
+                    {% endfor %}
                 </form>
 
                 <p><br></p>
