@@ -218,10 +218,11 @@ def search_alg(query, questions_list, tag_list, language, difficulty):
     for question in questions_list:
         assert isinstance(question, Question)
         # Tag search
-        if set(question.tags.all()).issubset(query_tags):
-            if language_difficulty_check(question, language, difficulty):
-                list_return.append(question)
-                continue
+        for quest_tag in question.tags.all():
+            if quest_tag in query_tags:
+                if language_difficulty_check(question, language, difficulty):
+                    list_return.append(question)
+                    continue
         # Title search
         for title in query_titels:
             assert isinstance(title, str)

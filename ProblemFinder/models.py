@@ -68,7 +68,7 @@ class Question(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES)
     tags = models.ManyToManyField(Tag)
-    solutions = models.ManyToManyField(Solution)
+    solutions = models.ManyToManyField(Solution, blank=True)
     visible = models.BooleanField(default=True)
 
     def __str__(self):
