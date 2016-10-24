@@ -116,7 +116,6 @@ def search(request):
     query = querystr.split(",")
     query = query[:-1]
 
-
     # Getting language and difficulty dropdown box selection
     lang = request.GET.get('language', '----')
     difft = request.GET.get('difficulty', '----')
@@ -217,17 +216,18 @@ def search_alg(query, questions_list, tag_list, language, difficulty):
                 query_titels.append(item)
     for question in questions_list:
         assert isinstance(question, Question)
-        # Tag search
-        for quest_tag in question.tags.all():
-            if quest_tag in query_tags:
-                if language_difficulty_check(question, language, difficulty):
+        if question.visible or user_flag == True:
+            # Tag search
+            for quest_tag in question.tags.all():
+                if quest_tag in query_tags:
+                    if language_difficulty_check(question, language, difficulty):
+                        list_return.append(question)
+                        continue
+            # Title search
+            for title in query_titels:
+                assert isinstance(title, str)
+                if title.lower() == question.title.lower() and language_difficulty_check(question, language, difficulty):
                     list_return.append(question)
-                    continue
-        # Title search
-        for title in query_titels:
-            assert isinstance(title, str)
-            if title.lower() == question.title.lower() and language_difficulty_check(question, language, difficulty):
-                list_return.append(question)
 
     return list(set(list_return))  # This removes duplicates
 
