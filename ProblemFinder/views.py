@@ -45,7 +45,7 @@ def index(request):
                 user_value = user
                 user_flag = True
 
-    #Create a list with all tags to help html queries
+    # Create a list with all tags to help html queries
     all_tags = []
     for question in questions_list:
         for tag in question.tags.all():
@@ -216,10 +216,15 @@ def search_alg(query, questions_list, tag_list, language, difficulty):
                 query_titels.append(item)
     for question in questions_list:
         assert isinstance(question, Question)
-        if question.visible or user_flag == True:
+        if question.visible or user_flag:
             # Tag search
-            for quest_tag in question.tags.all():
+            question_tags = list(question.tags.all())
+            for soln in question.solutions.all():
+                for tag in soln.tags.all():
+                    question_tags.append(tag)
+            for quest_tag in question_tags:
                 if quest_tag in query_tags:
+                    print("here")
                     if language_difficulty_check(question, language, difficulty):
                         list_return.append(question)
                         continue
