@@ -45,7 +45,7 @@ def index(request):
                 user_value = user
                 user_flag = True
 
-    # Create a list with all tags to help html queries
+    #Create a list with all tags to help html queries
     all_tags = []
     for question in questions_list:
         for tag in question.tags.all():

@@ -111,7 +111,7 @@
                 <div class="intro-text">
                     <span class="name">Search For Question</span>
                     <hr class="star-light">
-                    <span class="skills">Difficulty - Algorithm - Language</span>
+                    <span class="skills">Difficulty - Language - Algorithm</span>
                 </div>
                 <p><br><br></p>
             </div>
@@ -141,12 +141,15 @@
                     <datalist id="json-datalist"></datalist>
 
                     <input type="button" class="btn" value="Add" onclick="add_element_to_array(); display_array();"> </input>
-                <input type="submit" class="btn" value="Search" >
+
 
                     <div id="Result" style="font-size: 18px"></div>
 
                    <input type="hidden" id="hide" class="input-medium" name="query"
                                placeholder="Search..." >
+
+                <p></p>
+                <input type="submit" class="btn" value="Search" >
 
 
                         <script>
@@ -164,7 +167,7 @@
                             function display_array()
                             {
 
-                                var e = "SEARCH RESULTS<hr/>";
+                                var e = "Search Queries<hr/>";
                                 var hide = ''
 
 
@@ -185,9 +188,9 @@
 
                 <p><br></p>
 
-                <button type="button" class="btn btn-primary" href="search.html">
-                    <a href="search">Show All Questions</a>
-                </button>
+{#                <button type="button" class="btn btn-primary" href="search.html">#}
+{#                    <a href="search">Show All Questions</a>#}
+{#                </button>#}
 
             </div>
         </div>
