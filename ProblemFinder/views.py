@@ -145,6 +145,8 @@ def search(request):
 
     local_user = user_value
 
+
+
     # All elements passed to index.html
     context = {
         'question_list': new_question_list,
